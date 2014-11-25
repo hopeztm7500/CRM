@@ -34,6 +34,20 @@ public class MainController {
 	
 		return "index";
 	}
+	 
+	@RequestMapping(value = { "/dashboard"})
+	public String dashboard(ModelMap model) {
+		checkAndAddAuth(model);
+	
+		return "dashboard";
+	}
+
+	@RequestMapping(value = { "/table"})
+	public String table(ModelMap model) {
+		checkAndAddAuth(model);
+	
+		return "table";
+	}
 
 	@RequestMapping(value = "product-details")
 	public String aboutUs(ModelMap model) {
