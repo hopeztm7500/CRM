@@ -62,7 +62,7 @@
                 <div class="box">
                   <header>
                     <div class="icons">
-                      <form method="POST" action="uploadFile" enctype="multipart/form-data">
+                      <form method="POST" action="uploadFile" id="uploadform" enctype="multipart/form-data">
                             <input type="file" name="file">
                             <input type="text" name="name">
                             <input type="submit" value="Upload">
@@ -958,6 +958,9 @@
 
     <!-- Metis demo scripts -->
     <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/controller.js"></script>
+   
+    <script src="assets/js/table.js"></script>
     <script>
       $(function() {
         Metis.MetisTable();

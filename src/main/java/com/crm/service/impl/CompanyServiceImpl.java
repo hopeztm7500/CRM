@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.crm.dao.spec.ICompanyDao;
 import com.crm.dto.CompanyDto;
 import com.crm.service.spec.ICompanyService;
+
+
 @Service
 public class CompanyServiceImpl implements ICompanyService {
 
@@ -30,6 +32,12 @@ public class CompanyServiceImpl implements ICompanyService {
 	@Override
 	public boolean delete(CompanyDto companyDto) {
 		return companyDao.delete(companyDto);
+	}
+
+	@Override
+	public boolean createDataTables(String companyCode) {
+		// TODO Auto-generated method stub
+		return companyDao.createDataTables(companyCode);
 	}
 
 }

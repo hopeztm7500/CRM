@@ -4,6 +4,15 @@ public class MemberDto {
 	private int id;
 	private String wechat;
 	private String telphone;
+	public MemberDto(int id, String wechat, String telphone){
+		this.id = id;
+		this.wechat = wechat;
+		this.telphone = telphone;
+	}
+	public MemberDto(String wechat, String telphone){
+		this.wechat = wechat;
+		this.telphone = telphone;
+	}
 	public int getId() {
 		return id;
 	}

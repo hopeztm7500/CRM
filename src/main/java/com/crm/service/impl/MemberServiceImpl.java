@@ -1,5 +1,7 @@
 package com.crm.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,28 +15,34 @@ public class MemberServiceImpl implements IMemberService {
 	@Autowired IMemberDao memberDao;
 	
 	@Override
-	public MemberDto getMemberById(int id) {
-		return memberDao.getMemberById(id);
+	public MemberDto getMemberById(String companyCode, int id) {
+		return memberDao.getMemberById(companyCode, id);
 	}
 
 	@Override
-	public MemberDto getMemberByWechat(String wechart) {
-	    return memberDao.getMemberByWechat(wechart);
+	public MemberDto getMemberByWechat(String companyCode, String wechart) {
+	    return memberDao.getMemberByWechat(companyCode, wechart);
 	}
 
 	@Override
-	public boolean insert(MemberDto memberDto) {
-		return memberDao.insert(memberDto);
+	public boolean insert(String companyCode, MemberDto memberDto) {
+		return memberDao.insert(companyCode, memberDto);
 	}
 
 	@Override
-	public boolean delete(int id) {
-		return memberDao.delete(id);
+	public boolean delete(String companyCode, int id) {
+		return memberDao.delete(companyCode, id);
 	}
 
 	@Override
-	public boolean update(MemberDto memberDto) {
-		return memberDao.update(memberDto);
+	public boolean update(String companyCode, MemberDto memberDto) {
+		return memberDao.update(companyCode, memberDto);
+	}
+
+	@Override
+	public boolean insertByBatch(String companyCode, List<MemberDto> members) {
+		// TODO Auto-generated method stub
+		return memberDao.insertByBatch(companyCode, members);
 	}
 
 }

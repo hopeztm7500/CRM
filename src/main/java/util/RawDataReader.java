@@ -2,8 +2,9 @@ package util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,19 +18,15 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import com.crm.dto.RawDataRecordDto;
 
-
-import com.solon.dto.NetValue;
-
-public class NetValueReader 
-{
-	private static String DEFAULT_PREFIX = "Sheet";
+public class RawDataReader {
 	
-	public static Map<String, List<NetValue>> readXLS(String filePath) throws IOException, InvalidFormatException 
+	public static Map<String, List<RawDataRecordDto>> readXLS(String filePath) throws IOException, InvalidFormatException, ParseException 
     {
         //Blank workbook
     	
-    	Map<String, List<NetValue>> values = new HashMap<String, List<NetValue>>();
+    	Map<String, List<RawDataRecordDto>> values = new HashMap<String, List<RawDataRecordDto>>();
     	
     	FileInputStream inputStream = new FileInputStream(new File(filePath));
     	 
@@ -39,12 +36,11 @@ public class NetValueReader
         for(int i = 0; i < nSheet; i++){
         	 //Get first/desired sheet from the workbook
             Sheet sheet = workbook.getSheetAt(i);
-            List<NetValue> myValues = new ArrayList<NetValue>();
+            List<RawDataRecordDto> myValues = new ArrayList<RawDataRecordDto>();
+            
             String sheetName = sheet.getSheetName();
             
-            if(sheetName.indexOf(DEFAULT_PREFIX) > 0){
-            	continue;
-            }
+       
             
             //Iterate through each rows one by one
             Iterator<Row> rowIterator = sheet.iterator();
@@ -60,13 +56,22 @@ public class NetValueReader
             {
                 Row row = rowIterator.next();
                 //For each row, iterate through all the columns
-                Date date = row.getCell(0).getDateCellValue();
-                double netvalue = row.getCell(1).getNumericCellValue();
-                double ns300 = row.getCell(2).getNumericCellValue();
-                NetValue value = new NetValue();
-                value.setEvalueDate(new java.sql.Date(date.getTime()));
-                value.setNetValue(netvalue);
-                value.setNetIncreaseRate(ns300);
+                String companyCode = row.getCell(0).getStringCellValue();
+                String departCode = row.getCell(1).getStringCellValue();
+                String date = row.getCell(2).getStringCellValue();
+                String time = row.getCell(3).getStringCellValue();
+                String wechat = row.getCell(4).getStringCellValue();
+                String telphone = String.valueOf(row.getCell(5).getNumericCellValue());
+                String orderId = row.getCell(6).getStringCellValue();
+                String productId = row.getCell(7).getStringCellValue();
+                
+                int count = (int) row.getCell(8).getNumericCellValue();
+                double total = row.getCell(9).getNumericCellValue();
+                Date date2 = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(date + " " + time);
+                
+                RawDataRecordDto value = new RawDataRecordDto(companyCode, departCode, date2, 
+                		wechat, telphone, orderId, productId, count, total);
+                
                 myValues.add(value);
             }
             values.put(sheetName, myValues);
@@ -76,7 +81,4 @@ public class NetValueReader
         
         return values;
     }
-	
-	
-  
 }

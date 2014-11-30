@@ -7,5 +7,6 @@ public interface ICompanyDao {
 	public boolean update(CompanyDto companyDto);
 	public boolean insert(CompanyDto companyDto);
 	public boolean delete(CompanyDto companyDto);
+	public boolean createDataTables(String companyCode);
 	
 }

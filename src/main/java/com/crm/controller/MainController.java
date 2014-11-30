@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import util.NetValueReader;
-import util.UpdateResult;
+import util.NamingUtility;
+import util.RawDataReader;
 
-import com.solon.dto.NetValue;
-import com.solon.service.spec.INetValueService;
-import com.solon.service.spec.IProductService;
+import com.crm.dto.MemberDto;
+import com.crm.dto.RawDataRecordDto;
+import com.crm.dto.TransactionDto;
+import com.crm.service.spec.ICompanyService;
+import com.crm.service.spec.IMemberService;
+import com.crm.service.spec.ITransationService;
 
 
 
@@ -35,6 +39,17 @@ import com.solon.service.spec.IProductService;
 @RequestMapping("/")
 public class MainController {
 
+	
+	@Autowired
+	private ICompanyService companyService;
+	
+	@Autowired
+	private IMemberService memberService;
+	
+	@Autowired
+	private ITransationService transationService;
+	
+	
 	public boolean checkAndAddAuth(ModelMap model){
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
@@ -68,11 +83,8 @@ public class MainController {
 	
 		return "table";
 	}
+
 	
-	@Autowired
-	private IProductService productService;
-	@Autowired
-	private INetValueService netValueService;
 	
 	
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
@@ -89,52 +101,45 @@ public class MainController {
 	                    dir.mkdirs();
 	 
 	                String serverfileDir = dir.getAbsolutePath()
-	                        + File.separator + "uploadNetVal";
+	                        + NamingUtility.generateNewNameFor(name);
+	                
 	                File serverFile = new File(serverfileDir);
 	                BufferedOutputStream stream = new BufferedOutputStream(
 	                        new FileOutputStream(serverFile));
 	                stream.write(bytes);
 	                stream.close();
-	                Map<String, List<NetValue>> netValues = null;
+	                Map<String, List<RawDataRecordDto>> rawDatas = null;
 	                // Create the file on server
 	                if(name.indexOf(".xlsx") > 0 || name.indexOf(".xls") > 0){
-	                	netValues = NetValueReader.readXLS(serverfileDir);
+	                	rawDatas = RawDataReader.readXLS(serverfileDir);
+	                	for(String s: rawDatas.keySet()){
+	                		 //companyService.createDataTables(s);
+	                		 List<RawDataRecordDto> records = rawDatas.get(s);
+	                		 List<MemberDto> memberDtos = new ArrayList<>();
+	                		 List<TransactionDto> transactionDtos = new ArrayList<>();
+	                		 Set<String> uniqIdSet = new TreeSet<>();
+	                		 
+	                		 for(RawDataRecordDto raw: records){
+	                			 if(!uniqIdSet.contains(raw.getWechat())){
+		                			 memberDtos.add(new MemberDto(raw.getWechat(), raw.getTelphone()));
+		                			 uniqIdSet.add(raw.getWechat());
+	                			 }
+	                			 transactionDtos.add(new TransactionDto(raw.getWechat(), raw.getDepartCode(), raw.getDate().getTime(), raw.getOrderCode(),
+	                					 raw.getGoodsId(), raw.getCount(), raw.getTotal()));
+	                		 }
+	                		 
+	                		 memberService.insertByBatch(s, memberDtos);
+	                		 transationService.insertByBatch(s, transactionDtos);
+	                	}
 	                }
 	                else{
 	                	return "File is not valid Office Excel file";
 	                }
 
-	                Set<String> keys = netValues.keySet();
-	                List<UpdateResult> updates = new ArrayList<UpdateResult>();
+	      
 	                
-	                StringBuffer resultString = new StringBuffer("更新结果\n");
-	                for(String key: keys){
-	                	int id = productService.queryProductIdByName(key);
-	                	UpdateResult r = new UpdateResult();
-	                	r.setProductName(key);
-	                	resultString.append(key + "   ");
-	                
-	                	
-	                	if(id != -1){
-	                		List<NetValue> values = netValues.get(key);
-	                		for(NetValue val: values){
-	                			val.setProductId(id);
-	                		}
-	                		
-	                		netValueService.removeByProduct(id);
-	                		netValueService.insertByBatch(values);
-	                		r.setResultString("更新成功，删除原有净值，新增净值" + values.size() + "项");
-	                		resultString.append("更新成功，删除原有净值，新增净值" + values.size() + "项\n");
-	                	}
-	                	else{
-	                		r.setResultString("更新失败，没有找到匹配产品，请确保Sheet名称和产品名称一致");
-	                		resultString.append("更新失败，没有找到匹配产品，请确保Sheet名称和产品名称一致\n");
-	                	}
-	                	updates.add(r);
-	                }
-	                
-	                model.addAttribute("updateResults", updates);
-	                return "update success";
+	              
+	                return "redirect: update success";
 	            } catch (Exception e) {
 	                return "You failed to upload " + name + " => " + e.getMessage();
 	            }
