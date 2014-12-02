@@ -1,6 +1,5 @@
 package com.crm.dao.impl;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;

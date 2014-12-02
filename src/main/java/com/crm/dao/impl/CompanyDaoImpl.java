@@ -5,14 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.commons.dbutils.wrappers.StringTrimmedResultSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import sun.reflect.generics.scope.ClassScope;
 import util.DBUtility;
 
 import com.crm.dao.spec.ICompanyDao;
@@ -25,7 +23,8 @@ public class CompanyDaoImpl implements ICompanyDao {
 	private String SQL_INSERT = "INSERT INTO Company(company_code, company_name) values(?, ?) ";
 	private String SQL_CREATE_TABLE = "create table ";
 	private String SQL_TABLE_COLUMNS = "("
-			+ "wechat varchar(50) primary key, telphone varchar(50)) ";
+			+ "id varchar(50) NOT NULL PRIMARY KEY, wechat varchar(50), "
+			+ "telphone varchar(50), name varchar(50), gender varchar(50))";
 			
 	private String SQL_DB_SETTING = " ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci ";
 	private String SQL_TRANSACTION_COLUMNS = "(id int NOT NULL AUTO_INCREMENT PRIMARY KEY, member_id varchar(50) NOT NULL , dept_code varchar(60),"
@@ -80,6 +79,7 @@ public class CompanyDaoImpl implements ICompanyDao {
 				
 				@Override
 				public void setValues(PreparedStatement arg0) throws SQLException {
+					
 					arg0.setString(1, companyDto.getCompanyCode());
 					arg0.setString(2, companyDto.getCompanyName());	
 				}
@@ -113,7 +113,7 @@ public class CompanyDaoImpl implements ICompanyDao {
 		String finalCreateTransactionTableSQL = SQL_CREATE_TABLE + DBUtility.TransTableName(companyCode) 
 				+ SQL_TRANSACTION_COLUMNS 
 				+ DBUtility.GenerateForeignKeyPart(DBUtility.TransTableName(companyCode), "member_id",
-						DBUtility.MemberTableName(companyCode), "wechat") 
+						DBUtility.MemberTableName(companyCode), "id") 
 			    + ")"
 			    + SQL_DB_SETTING;
 		

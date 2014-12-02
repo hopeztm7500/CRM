@@ -1,15 +1,19 @@
 package com.crm.dao.impl;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import util.DBUtility;
+import util.NamingUtility;
 
 import com.crm.dao.spec.IMemberDao;
 import com.crm.dto.MemberDto;
@@ -17,7 +21,19 @@ import com.crm.dto.MemberDto;
 @Repository
 public class MemberDaoImpl implements IMemberDao {
 
-	private static String SQL_CREATE_TABLE = "INSERT INTO %s(wechat, telphone) VALUES(?, ?)";
+	private static String SQL_CREATE_TABLE = "INSERT INTO %s(id, wechat, telphone) VALUES(?, ?, ?)";
+	private static String SQL_QUERY_FOR_IDS = "SELECT id, wechat, telphone from %s WHERE wechat = ? or telphone = ? ";
+	
+	public static class MemberRowMapper implements RowMapper<MemberDto>{
+
+		@Override
+		public MemberDto mapRow(ResultSet rs, int index) throws SQLException {
+			
+			MemberDto memberDto = new MemberDto(rs.getString(1), rs.getString(2), rs.getString(3));
+			return memberDto;
+		}
+		
+	}
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -34,9 +50,7 @@ public class MemberDaoImpl implements IMemberDao {
 	}
 
 	private String generateInsertSQL(String companyCode) {
-		return String.format(SQL_CREATE_TABLE,
-				DBUtility.MemberTableName(companyCode),
-				DBUtility.MemberTableName(companyCode));
+		return String.format(SQL_CREATE_TABLE,DBUtility.MemberTableName(companyCode));
 	}
 
 	@Override
@@ -74,8 +88,11 @@ public class MemberDaoImpl implements IMemberDao {
 				@Override
 				public void setValues(PreparedStatement pps, int index)
 						throws SQLException {
-					pps.setString(1, members.get(index).getWechat());
-					pps.setString(2, members.get(index).getTelphone());
+					String newId = NamingUtility.generateUniqIDBaseOnDate();
+					pps.setString(1, newId);
+					pps.setString(2, members.get(index).getWechat());
+					pps.setString(3, members.get(index).getTelphone());
+					members.get(index).setId(newId);
 				}
 
 				@Override
@@ -88,6 +105,20 @@ public class MemberDaoImpl implements IMemberDao {
 		}
 
 		return true;
+	}
+
+	@Override
+	public void queryIdForMembers(String companyCode, List<MemberDto> memberDtos) {
+		String SQL = generateInsertSQL(companyCode);
+		jdbcTemplate.query(SQL, new PreparedStatementSetter(){
+
+			@Override
+			public void setValues(PreparedStatement arg0) throws SQLException {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		}, new MemberRowMapper());
 	}
 
 }

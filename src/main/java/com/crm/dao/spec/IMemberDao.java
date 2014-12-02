@@ -14,5 +14,6 @@ public interface IMemberDao {
 	public boolean delete(String companyCode, int id);
 	public boolean update(String companyCode, MemberDto memberDto);
 	public boolean insertByBatch(String companyCode, List<MemberDto> members);
+	public void queryIdForMembers(String companyCode, List<MemberDto> memberDtos);
 	
 }

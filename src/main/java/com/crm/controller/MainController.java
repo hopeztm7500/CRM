@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,8 @@ public class MainController {
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	public @ResponseBody String uploadFileHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, ModelMap model) {
 	 
+
+		
 	        if (!file.isEmpty()) {
 	            try {
 	                byte[] bytes = file.getBytes();
@@ -113,22 +116,26 @@ public class MainController {
 	                if(name.indexOf(".xlsx") > 0 || name.indexOf(".xls") > 0){
 	                	rawDatas = RawDataReader.readXLS(serverfileDir);
 	                	for(String s: rawDatas.keySet()){
-	                		 //companyService.createDataTables(s);
+	                		 companyService.createDataTables(s);
 	                		 List<RawDataRecordDto> records = rawDatas.get(s);
 	                		 List<MemberDto> memberDtos = new ArrayList<>();
 	                		 List<TransactionDto> transactionDtos = new ArrayList<>();
-	                		 Set<String> uniqIdSet = new TreeSet<>();
+	                		 Map<String, MemberDto> memberMap = new TreeMap<>();
 	                		 
 	                		 for(RawDataRecordDto raw: records){
-	                			 if(!uniqIdSet.contains(raw.getWechat())){
-		                			 memberDtos.add(new MemberDto(raw.getWechat(), raw.getTelphone()));
-		                			 uniqIdSet.add(raw.getWechat());
+	                			 if(!memberMap.containsKey(raw.getWechat())){
+	                				 MemberDto newDto = new MemberDto(raw.getWechat(), raw.getTelphone());
+	                				 memberMap.put(raw.getWechat(), newDto);
+	                				 memberDtos.add(newDto);
 	                			 }
-	                			 transactionDtos.add(new TransactionDto(raw.getWechat(), raw.getDepartCode(), raw.getDate().getTime(), raw.getOrderCode(),
-	                					 raw.getGoodsId(), raw.getCount(), raw.getTotal()));
 	                		 }
 	                		 
 	                		 memberService.insertByBatch(s, memberDtos);
+	                		 for(RawDataRecordDto raw: records){	 
+	                			 transactionDtos.add(new TransactionDto(memberMap.get(raw.getWechat()).getId(), raw.getDepartCode(), raw.getDate().getTime(), raw.getOrderCode(),
+	                					 raw.getGoodsId(), raw.getCount(), raw.getTotal()));
+	                		 }
+	                		 
 	                		 transationService.insertByBatch(s, transactionDtos);
 	                	}
 	                }

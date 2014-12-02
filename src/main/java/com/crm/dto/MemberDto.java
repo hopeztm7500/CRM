@@ -1,10 +1,10 @@
 package com.crm.dto;
 
 public class MemberDto {
-	private int id;
+	private String id;
 	private String wechat;
 	private String telphone;
-	public MemberDto(int id, String wechat, String telphone){
+	public MemberDto(String id, String wechat, String telphone){
 		this.id = id;
 		this.wechat = wechat;
 		this.telphone = telphone;
@@ -13,10 +13,10 @@ public class MemberDto {
 		this.wechat = wechat;
 		this.telphone = telphone;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getWechat() {

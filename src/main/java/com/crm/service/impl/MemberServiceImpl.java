@@ -41,8 +41,12 @@ public class MemberServiceImpl implements IMemberService {
 
 	@Override
 	public boolean insertByBatch(String companyCode, List<MemberDto> members) {
-		// TODO Auto-generated method stub
 		return memberDao.insertByBatch(companyCode, members);
+	}
+
+	@Override
+	public void queryIdForMembers(String companyCode, List<MemberDto> memberDtos) {
+		memberDao.queryIdForMembers(companyCode, memberDtos);
 	}
 
 }
