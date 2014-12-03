@@ -49,4 +49,9 @@ public class MemberServiceImpl implements IMemberService {
 		memberDao.queryIdForMembers(companyCode, memberDtos);
 	}
 
+	@Override
+	public List<MemberDto> getAllMember(String companyCode) {
+		return memberDao.getAllMember(companyCode);
+	}
+
 }

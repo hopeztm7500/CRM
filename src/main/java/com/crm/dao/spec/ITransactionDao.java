@@ -12,5 +12,6 @@ public interface ITransactionDao {
 	public boolean insert(String companyCode, List<TransactionDto> transactions);
 	public boolean delete(String companyCode, int transactionId);
 	public boolean insertByBatch(String companyCode, List<TransactionDto> transactionDtos);
+	public List<TransactionDto> getAllTransaction(String companyCode);
 	
 }

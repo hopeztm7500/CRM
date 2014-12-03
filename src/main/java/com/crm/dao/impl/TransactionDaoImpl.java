@@ -1,12 +1,15 @@
 package com.crm.dao.impl;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.struts.taglib.html.RewriteTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import util.DBUtility;
@@ -20,12 +23,26 @@ public class TransactionDaoImpl implements ITransactionDao {
 	private static String SQL_CREATE_TABLE = "INSERT INTO %s(member_id, dept_code, con_date, order_code, goods_code, count, total) "
 			+ " values(?, ?, ?, ?, ?, ?, ?)";
 	
+	private static String SQL_GET_ALL = "SELECT member_id, dept_code, con_date, order_code, goods_code, count, total from %s ";
+	
+	private static class TransRowMapper implements RowMapper<TransactionDto>{
+		@Override
+		public TransactionDto mapRow(ResultSet rs, int arg1)
+				throws SQLException {
+			return new TransactionDto(rs.getString(1), rs.getString(2), rs.getLong(3), 
+					rs.getString(4), rs.getString(5), rs.getInt(6), rs.getDouble(7));
+		}
+	}
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	private String generateInsertSQL(String companyCode){
 		return String.format(SQL_CREATE_TABLE, DBUtility.TransTableName(companyCode));
+	}
+	
+	private String generateQuerySQL(String companyCode){
+		return String.format(SQL_GET_ALL, DBUtility.TransTableName(companyCode));
 	}
 	
 	@Override
@@ -84,6 +101,14 @@ public class TransactionDaoImpl implements ITransactionDao {
 		});
 		
 		return true;
+	}
+
+	@Override
+	public List<TransactionDto> getAllTransaction(String companyCode) {
+		
+		String SQL = generateQuerySQL(companyCode);
+		
+		return jdbcTemplate.query(SQL, new TransRowMapper());
 	}
 
 }

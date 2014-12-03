@@ -40,4 +40,9 @@ public class TransationServiceImpl implements ITransationService {
 		return transactionDao.insertByBatch(companyCode, transactionDtos);
 	}
 
+	@Override
+	public List<TransactionDto> getAllTransaction(String companyCode) {
+		return transactionDao.getAllTransaction(companyCode);
+	}
+
 }

@@ -10,5 +10,6 @@ public interface ITransationService {
 	public boolean insert(String companyCode, TransactionDto transactionDto);
 	public boolean insertByBatch(String companyCode, List<TransactionDto> transactionDtos);
 	public boolean delete(String companyCode, int transactionId);
+	public List<TransactionDto> getAllTransaction(String companyCode);
 	
 }

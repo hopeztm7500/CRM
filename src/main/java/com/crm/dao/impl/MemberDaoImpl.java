@@ -23,6 +23,7 @@ public class MemberDaoImpl implements IMemberDao {
 
 	private static String SQL_CREATE_TABLE = "INSERT INTO %s(id, wechat, telphone) VALUES(?, ?, ?)";
 	private static String SQL_QUERY_FOR_IDS = "SELECT id, wechat, telphone from %s WHERE wechat = ? or telphone = ? ";
+	private static String SQL_SELECT_ALL = " SELECT id, wechat, telphone, name, gender from %s ";
 	
 	public static class MemberRowMapper implements RowMapper<MemberDto>{
 
@@ -34,6 +35,17 @@ public class MemberDaoImpl implements IMemberDao {
 		}
 		
 	}
+	public static class MemberALLRowMapper implements RowMapper<MemberDto>{
+
+		@Override
+		public MemberDto mapRow(ResultSet rs, int index) throws SQLException {
+			
+			MemberDto memberDto = new MemberDto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+			return memberDto;
+		}
+		
+	}
+	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -51,6 +63,10 @@ public class MemberDaoImpl implements IMemberDao {
 
 	private String generateInsertSQL(String companyCode) {
 		return String.format(SQL_CREATE_TABLE,DBUtility.MemberTableName(companyCode));
+	}
+	
+	private String generateSelectAllSQL(String companyCode) {
+		return String.format(SQL_SELECT_ALL,DBUtility.MemberTableName(companyCode));
 	}
 
 	@Override
@@ -119,6 +135,13 @@ public class MemberDaoImpl implements IMemberDao {
 			}
 			
 		}, new MemberRowMapper());
+	}
+
+	@Override
+	public List<MemberDto> getAllMember(String companyCode) {
+		String SQL = generateSelectAllSQL(companyCode);
+		return jdbcTemplate.query(SQL, new MemberALLRowMapper());
+		
 	}
 
 }

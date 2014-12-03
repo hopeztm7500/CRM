@@ -64,6 +64,12 @@ public class MainController {
 		}
 	}
 	
+	public String getCompanyCode(){
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		return "SDFX";
+	}
+	
 	@RequestMapping(value = { "/", "index" })
 	public String index(ModelMap model) {
 		checkAndAddAuth(model);
@@ -85,6 +91,25 @@ public class MainController {
 		return "table";
 	}
 
+	
+
+	@RequestMapping(value = "/members", method = RequestMethod.POST)
+	public @ResponseBody List<MemberDto> getMembers(){
+		String companyCode = getCompanyCode();
+		
+		return memberService.getAllMember(companyCode);
+
+	}
+	
+	@RequestMapping(value = "/transactions", method = RequestMethod.POST)
+	public @ResponseBody List<TransactionDto> getTransactions(){
+		String companyCode = getCompanyCode();
+		
+		return transationService.getAllTransaction(companyCode);
+
+	}
+	
+	
 	
 	
 	
