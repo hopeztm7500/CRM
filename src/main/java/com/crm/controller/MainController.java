@@ -6,9 +6,8 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -84,11 +83,22 @@ public class MainController {
 		return "dashboard";
 	}
 
-	@RequestMapping(value = { "/table"})
-	public String table(ModelMap model) {
+	
+	
+	@RequestMapping(value = { "/transaction-data"})
+	public String transactionData(ModelMap model) {
 		checkAndAddAuth(model);
 	
-		return "table";
+		return "transaction-data";
+	}
+
+	
+	
+	@RequestMapping(value = { "/customer-data"})
+	public String customerData(ModelMap model) {
+		checkAndAddAuth(model);
+	
+		return "customer-data";
 	}
 
 	
