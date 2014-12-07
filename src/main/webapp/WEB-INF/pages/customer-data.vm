@@ -11,6 +11,7 @@
     <link href="http://cdn.bootcss.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
     <!-- DATA TABLES -->
     <link href="assets/css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/datatables/datatables.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="assets/css/AdminLTE.css" rel="stylesheet" type="text/css" />
 
@@ -60,11 +61,11 @@
                                 <table id="memberTable" class="table table-bordered table-hover" jq-table>
                                    <thead>
                                     <tr>
-                                      <th>Member ID</th>
-                                      <th>Wechat</th>
-                                      <th>Telephone</th>
-                                      <th>Name</th>
-                                      <th>Gender</th>
+                                      <th>会员ID</th>
+                                      <th>微信账号</th>
+                                      <th>电话号码</th>
+                                      <th>姓名</th>
+                                      <th>性别</th>
                                     </tr>
                                    </thead>
                                <tbody>
