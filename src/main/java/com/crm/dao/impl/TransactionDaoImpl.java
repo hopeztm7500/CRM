@@ -20,10 +20,12 @@ import com.crm.dto.TransactionDto;
 @Repository
 public class TransactionDaoImpl implements ITransactionDao {
 
-	private static String SQL_CREATE_TABLE = "INSERT INTO %s(member_id, dept_code, con_date, order_code, goods_code, count, total) "
+	private static String SQL_CREATE_TABLE = "INSERT INTO %s(member_id, store_code, purchase_date, order_number,"
+			+ " SKU_number, SKU_count, SKU_total) "
 			+ " values(?, ?, ?, ?, ?, ?, ?)";
 	
-	private static String SQL_GET_ALL = "SELECT member_id, dept_code, con_date, order_code, goods_code, count, total from %s ";
+	private static String SQL_GET_ALL = "SELECT member_id, store_code, purchase_date, order_number, SKU_number, "
+			+ "SKU_count, SKU_total from %s ";
 	
 	private static class TransRowMapper implements RowMapper<TransactionDto>{
 		@Override
