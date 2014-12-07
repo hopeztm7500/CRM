@@ -14,4 +14,8 @@ public class DBUtility {
 	public static String TransTableName(String code){
 		return code + "_TRANS";
 	}
+	
+	public static String GenerateSQLOnCompany(String companyCode, String baseSQL){
+		return String.format(baseSQL, companyCode);
+	}
 }

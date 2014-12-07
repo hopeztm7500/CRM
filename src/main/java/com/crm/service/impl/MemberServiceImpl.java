@@ -15,7 +15,7 @@ public class MemberServiceImpl implements IMemberService {
 	@Autowired IMemberDao memberDao;
 	
 	@Override
-	public MemberDto getMemberById(String companyCode, int id) {
+	public MemberDto getMemberById(String companyCode, String id) {
 		return memberDao.getMemberById(companyCode, id);
 	}
 
@@ -30,7 +30,7 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public boolean delete(String companyCode, int id) {
+	public boolean delete(String companyCode, String id) {
 		return memberDao.delete(companyCode, id);
 	}
 

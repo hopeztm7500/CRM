@@ -69,6 +69,22 @@ public class MainController {
 		return "SDFX";
 	}
 	
+
+	
+	
+	
+	@RequestMapping(value="memberDetail")
+	public String getCustomerById(@RequestParam String id, ModelMap model) {
+		
+		
+		MemberDto member = memberService.getMemberById(getCompanyCode(), id);
+		model.put("member", member);
+		
+		return "member-detail";
+	}
+	
+	
+	
 	@RequestMapping(value = { "/", "index" })
 	public String index(ModelMap model) {
 		checkAndAddAuth(model);
