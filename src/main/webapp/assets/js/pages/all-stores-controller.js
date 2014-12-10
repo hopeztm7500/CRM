@@ -7,7 +7,7 @@
 		 $scope.stores = data;
 	 });
      
-     $scope.map = new BMap.Map("map-container");
+     $scope.map = new BMap.Map("allmap");
      var point = new BMap.Point(121.528988, 31.229916);
      $scope.map.centerAndZoom(point, 15);
      $scope.map.enableScrollWheelZoom(); 
