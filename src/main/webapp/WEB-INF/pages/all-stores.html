@@ -6,6 +6,8 @@
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+
 <link
 	href="http://cdn.bootcss.com/bootstrap/3.3.1/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -71,14 +73,26 @@
 
 
 								<div class="box-body">
-									
-								    <div id="allmap" class="map"></div>
-									<div id="city-filter">
-									<select id="province-select"  ng-options="p in provices">
-									<option  ng-bind="p.name" value={{$index}}></option>
-									</select>
+
+									<div id="allmap" class="map"></div>
+
+
+									<div id="c-filter" class="">
+
+										<select class="select2 form-control"
+											ng-model="selection.province"
+											ng-change="selectProvince()"
+											ng-options="p.name for p in provices">
+										</select> 
+										<select class="select2 form-control"
+											ng-model="selection.city" 
+											ng-options="c.name for c in cities"
+											ng-change="selectCity()">
+
+										</select>
+
 									</div>
-									
+
 								</div>
 								<!-- /.box-body -->
 
@@ -112,7 +126,8 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="assets/js/pages/demo.js" type="text/javascript"></script>
 	<script src="assets/js/lib/underscore.js" type="text/javascript"></script>
-    <script type="text/javascript" src="http://passport.baidu.com/js/sitedata_bas.js" charset="GBK"></script>
+	<script type="text/javascript"
+		src="assets/js/pages/cities.js" charset="UTF-8"></script>
 	<script type="text/javascript"
 		src="http://api.map.baidu.com/api?v=2.0&ak=qFMgNHPq0aKw78GVMkxWITf3"></script>
 
