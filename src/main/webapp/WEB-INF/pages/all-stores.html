@@ -73,7 +73,11 @@
 								<div class="box-body">
 									
 								    <div id="allmap" class="map"></div>
-									
+									<div id="city-filter">
+									<select id="province-select"  ng-options="p in provices">
+									<option  ng-bind="p.name" value={{$index}}></option>
+									</select>
+									</div>
 									
 								</div>
 								<!-- /.box-body -->
@@ -108,7 +112,7 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="assets/js/pages/demo.js" type="text/javascript"></script>
 	<script src="assets/js/lib/underscore.js" type="text/javascript"></script>
-
+    <script type="text/javascript" src="http://passport.baidu.com/js/sitedata_bas.js" charset="GBK"></script>
 	<script type="text/javascript"
 		src="http://api.map.baidu.com/api?v=2.0&ak=qFMgNHPq0aKw78GVMkxWITf3"></script>
 

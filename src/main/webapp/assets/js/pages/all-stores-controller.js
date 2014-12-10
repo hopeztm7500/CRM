@@ -6,6 +6,7 @@
      $http.post('/all-stores-data').success(function(data){
 		 $scope.stores = data;
 	 });
+     $scope.provices = arrCity;//this data is from baidu
      
      $scope.map = new BMap.Map("allmap");
      var point = new BMap.Point(121.528988, 31.229916);
