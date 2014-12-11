@@ -11,7 +11,7 @@ module.controller('AllStoresController', function($scope, $http) {
 	var map = new BMap.Map("allmap");
 	map.centerAndZoom(MIDDLE_CITY, WHOLE_COUNTRY_ZOOM);
 	map.enableScrollWheelZoom();
-	
+	map.addEventListener("click", selectPoint);
 
 	$scope.stores = [];
 	$http.post('/all-stores-data').success(function(data) {
@@ -21,7 +21,6 @@ module.controller('AllStoresController', function($scope, $http) {
 	$scope.selection = {};
 	$scope.selection.province = arrCity[0];
 	$scope.selection.city = arrCity[0].sub[0];
-
 	$scope.cities = arrCity[0].sub;
 	
 
@@ -63,7 +62,18 @@ module.controller('AllStoresController', function($scope, $http) {
 		}
 	}
 	$scope.navigateTo = function(store){
-		map.centerAndZoom(store.province + " " + store.city, STORE_ZOOM);
+		var point = new BMap.Point(store.longtitude, store.latitude);
+		map.centerAndZoom(point, STORE_ZOOM);
+	}
+	$scope.addNewStore = function(){
+		
+	}
+	
+	var tempMarker = null;
+	function selectPoint(e){
+		map.removeOverlay(tempMarker);
+		tempMarker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+		map.addOverlay(tempMarker);
 	}
 
 });
