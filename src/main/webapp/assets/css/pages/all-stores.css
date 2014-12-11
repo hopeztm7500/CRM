@@ -1,0 +1,24 @@
+#map-container {
+	width: 80%;
+	height: 200px;
+}
+
+#allmap {
+	width: 100%;
+	height: 400px;
+}
+
+#allmap img {
+	max-width: none !important;
+}
+
+@media only screen and (max-device-width:480px) {
+	.select2 {
+		width: 100%;
+	}
+}
+
+.select2 {
+	width: 25%;
+	display:inline;
+}
