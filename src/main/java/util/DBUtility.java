@@ -9,9 +9,12 @@ public class DBUtility {
 	}
 	
 	public static String MemberTableName(String code){
-		return code + "_MEMBER";
+		return code + "_MEMBERS";
 	}
 	public static String TransTableName(String code){
 		return code + "_TRANS";
+	}
+	public static String CompanyStatusTableName(String code){
+		return code + "_A_COMPANY_STATUS";
 	}
 }

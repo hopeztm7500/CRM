@@ -28,9 +28,11 @@ import util.RawDataReader;
 import com.crm.dto.MemberDto;
 import com.crm.dto.RawDataRecordDto;
 import com.crm.dto.TransactionDto;
+import com.crm.dto.CompanyStatusDto;
 import com.crm.service.spec.ICompanyService;
 import com.crm.service.spec.IMemberService;
 import com.crm.service.spec.ITransationService;
+import com.crm.service.spec.IAnalysisService;
 
 
 
@@ -48,6 +50,9 @@ public class MainController {
 	
 	@Autowired
 	private ITransationService transationService;
+	
+	@Autowired
+	private IAnalysisService analysisService;
 	
 	
 	public boolean checkAndAddAuth(ModelMap model){
@@ -94,15 +99,21 @@ public class MainController {
 
 	
 	
+	@RequestMapping(value = { "/helloworld"})
+	public String helloworld(ModelMap model) {
+		checkAndAddAuth(model);
+	
+		return "customer-data";
+	}
+	
+
 	@RequestMapping(value = { "/customer-data"})
 	public String customerData(ModelMap model) {
 		checkAndAddAuth(model);
 	
 		return "customer-data";
 	}
-
 	
-
 	@RequestMapping(value = "/members", method = RequestMethod.POST)
 	public @ResponseBody List<MemberDto> getMembers(){
 		String companyCode = getCompanyCode();

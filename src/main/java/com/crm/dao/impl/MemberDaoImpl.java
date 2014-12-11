@@ -60,7 +60,7 @@ public class MemberDaoImpl implements IMemberDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	private String generateInsertSQL(String companyCode) {
 		return String.format(SQL_CREATE_TABLE,DBUtility.MemberTableName(companyCode));
 	}
@@ -68,6 +68,8 @@ public class MemberDaoImpl implements IMemberDao {
 	private String generateSelectAllSQL(String companyCode) {
 		return String.format(SQL_SELECT_ALL,DBUtility.MemberTableName(companyCode));
 	}
+	
+
 
 	@Override
 	public boolean insert(String companyCode, MemberDto memberDto) {

@@ -94,7 +94,6 @@ public class CompanyDaoImpl implements ICompanyDao {
 			e.printStackTrace();
 		}
 		return false;
-		
 	}
 
 	@Override
