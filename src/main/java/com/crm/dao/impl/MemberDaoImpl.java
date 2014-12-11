@@ -24,6 +24,7 @@ public class MemberDaoImpl implements IMemberDao {
 	private static String SQL_CREATE_TABLE = "INSERT INTO %s(id, wechat, telphone) VALUES(?, ?, ?)";
 	private static String SQL_QUERY_FOR_IDS = "SELECT id, wechat, telphone from %s WHERE wechat = ? or telphone = ? ";
 	private static String SQL_SELECT_ALL = " SELECT id, wechat, telphone, name, gender from %s ";
+	private static String SQL_SELECT_BY_ID = " SELECT id, wechat, telphone, name, gender from %s where id=? ";
 	
 	public static class MemberRowMapper implements RowMapper<MemberDto>{
 
@@ -46,12 +47,26 @@ public class MemberDaoImpl implements IMemberDao {
 		
 	}
 	
+	
+	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
 	@Override
-	public MemberDto getMemberById(String companyCode, int id) {
+	public MemberDto getMemberById(String companyCode, final String id) {
 		// TODO Auto-generated method stub
+		String tableName = DBUtility.MemberTableName(companyCode);
+		String SQL = DBUtility.GenerateSQLOnCompany(tableName, SQL_SELECT_BY_ID);
+		List<MemberDto> members = jdbcTemplate.query(SQL, new PreparedStatementSetter(){
+
+			@Override
+			public void setValues(PreparedStatement pps) throws SQLException {
+				pps.setString(1, id);
+			}}, new MemberRowMapper());
+		if(members.size() > 0){
+			return members.get(0);
+		}
+		
 		return null;
 	}
 
@@ -77,7 +92,7 @@ public class MemberDaoImpl implements IMemberDao {
 	}
 
 	@Override
-	public boolean delete(String companyCode, int id) {
+	public boolean delete(String companyCode, String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
