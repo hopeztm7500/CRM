@@ -113,8 +113,7 @@
     name:"云浮",
     sub:[{name:"请选择"},{name:"云城区"},{name:"罗定市"},{name:"云安县"},{name:"新兴县"},{name:"郁南县"}],
     type:0
-  },
-  {name:"其他"}],
+  }],
   type:1
 },
 {
@@ -204,8 +203,7 @@
     name:"葫芦岛",
     sub:[{name:"请选择"},{name:"龙港区"},{name:"南票区"},{name:"连山区"},{name:"兴城市"},{name:"绥中县"},{name:"建昌县"}],
     type:0
-  },
-  {name:"其他"}],
+  }],
   type:1
 },
 {
@@ -276,7 +274,7 @@
     sub:[{name:"请选择"},{name:"宿城区"},{name:"宿豫区"},{name:"沭阳县"},{name:"泗阳县"},{name:"泗洪县"}],
     type:0
   },
-  {name:"其他"}],
+  ],
   type:1
 },
 {
@@ -367,7 +365,7 @@
     sub:[],
     type:0
   },
-  {name:"其他"}],
+  ],
   type:1
 },
 {  name:"四川",
@@ -477,7 +475,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"西昌市"},{name:"美姑县"},{name:"昭觉县"},{name:"金阳县"},{name:"甘洛县"},{name:"布拖县"},{name:"雷波县"},{name:"普格县"},{name:"宁南县"},{name:"喜德县"},{name:"会东县"},{name:"越西县"},{name:"会理县"},{name:"盐源县"},{name:"德昌县"},{name:"冕宁县"},{name:"木里藏族自治县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"陕西",
@@ -532,7 +530,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"商州区"},{name:"镇安县"},{name:"山阳县"},{name:"洛南县"},{name:"商南县"},{name:"丹凤县"},{name:"柞水县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"河北",
@@ -592,7 +590,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"桃城区"},{name:"冀州市"},{name:"深州市"},{name:"枣强县"},{name:"武邑县"},{name:"武强县"},{name:"饶阳县"},{name:"安平县"},{name:"故城县"},{name:"景县"},{name:"阜城县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"山西",
@@ -652,7 +650,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"离石区"},{name:"孝义市"},{name:"汾阳市"},{name:"文水县"},{name:"中阳县"},{name:"兴县"},{name:"临县"},{name:"方山县"},{name:"柳林县"},{name:"岚县"},{name:"交口县"},{name:"交城县"},{name:"石楼县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"河南",
@@ -747,7 +745,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"济源市"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"吉林",
@@ -793,11 +791,11 @@ sub:[{name:"请选择",sub:[]},
   type:0
 },
 {
-  name:"延边朝鲜族自治州",
+  name:"延边",
   sub:[{name:"请选择"},{name:"延吉市"},{name:"图们市"},{name:"敦化市"},{name:"龙井市"},{name:"珲春市"},{name:"和龙市"},{name:"安图县"},{name:"汪清县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"黑龙江",
@@ -867,7 +865,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"呼玛县"},{name:"塔河县"},{name:"漠河县"},{name:"大兴安岭辖区"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"内蒙古",
@@ -932,7 +930,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"阿拉善左旗"},{name:"阿拉善右旗"},{name:"额济纳旗"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"山东",
@@ -1022,7 +1020,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"牡丹区"},{name:"鄄城县"},{name:"单县"},{name:"郓城县"},{name:"曹县"},{name:"定陶县"},{name:"巨野县"},{name:"东明县"},{name:"成武县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"安徽",
@@ -1112,7 +1110,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"宣州区"},{name:"宁国市"},{name:"广德县"},{name:"郎溪县"},{name:"泾县"},{name:"旌德县"},{name:"绩溪县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"浙江",
@@ -1172,7 +1170,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"莲都区"},{name:"龙泉市"},{name:"缙云县"},{name:"青田县"},{name:"云和县"},{name:"遂昌县"},{name:"松阳县"},{name:"庆元县"},{name:"景宁畲族自治县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"福建",
@@ -1222,7 +1220,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"蕉城区"},{name:"福安市"},{name:"福鼎市"},{name:"寿宁县"},{name:"霞浦县"},{name:"柘荣县"},{name:"屏南县"},{name:"古田县"},{name:"周宁县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"湖南",
@@ -1297,7 +1295,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"吉首市"},{name:"古丈县"},{name:"龙山县"},{name:"永顺县"},{name:"凤凰县"},{name:"泸溪县"},{name:"保靖县"},{name:"花垣县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"广西",
@@ -1372,7 +1370,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"江州区"},{name:"凭祥市"},{name:"宁明县"},{name:"扶绥县"},{name:"龙州县"},{name:"大新县"},{name:"天等县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"江西",
@@ -1432,7 +1430,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"信州区"},{name:"德兴市"},{name:"上饶县"},{name:"广丰县"},{name:"鄱阳县"},{name:"婺源县"},{name:"铅山县"},{name:"余干县"},{name:"横峰县"},{name:"弋阳县"},{name:"玉山县"},{name:"万年县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"贵州",
@@ -1482,7 +1480,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"都匀市"},{name:"福泉市"},{name:"贵定县"},{name:"惠水县"},{name:"罗甸县"},{name:"瓮安县"},{name:"荔波县"},{name:"龙里县"},{name:"平塘县"},{name:"长顺县"},{name:"独山县"},{name:"三都水族自治县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"云南",
@@ -1567,7 +1565,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"景洪市"},{name:"勐海县"},{name:"勐腊县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"西藏",
@@ -1607,7 +1605,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"噶尔县"},{name:"普兰县"},{name:"札达县"},{name:"日土县"},{name:"革吉县"},{name:"改则县"},{name:"措勤县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"海南",
@@ -1702,7 +1700,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"甘肃",
@@ -1777,7 +1775,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"合作市"},{name:"临潭县"},{name:"卓尼县"},{name:"舟曲县"},{name:"迭部县"},{name:"玛曲县"},{name:"碌曲县"},{name:"夏河县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"宁夏",
@@ -1807,7 +1805,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"沙坡头区"},{name:"中宁县"},{name:"海原县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"青海",
@@ -1852,7 +1850,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"德令哈市"},{name:"格尔木市"},{name:"乌兰县"},{name:"都兰县"},{name:"天峻县"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },
 {  name:"新疆",
@@ -1937,7 +1935,7 @@ sub:[{name:"请选择",sub:[]},
   sub:[{name:"请选择"},{name:"伊宁市"},{name:"奎屯市"},{name:"伊宁县"},{name:"特克斯县"},{name:"尼勒克县"},{name:"昭苏县"},{name:"新源县"},{name:"霍城县"},{name:"巩留县"},{name:"察布查尔锡伯自治县"},{name:"塔城地区"},{name:"阿勒泰地区"}],
   type:0
 },
-{name:"其他"}],
+],
 type:1
 },	
 {

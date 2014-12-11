@@ -1,5 +1,7 @@
 package com.crm.dto;
 
+import java.util.Date;
+
 
 public class StoreDto{
 	
@@ -9,15 +11,21 @@ public class StoreDto{
 	
 	private double longtitude;
 	private double latitude;
+	private Date openDate;
+	private String province;
+	private String city;
 	private String address;
 	
-	public StoreDto(int id, String storeCode, String storeName, double longtitude, double latitude, String address){
+	public StoreDto(int id, String storeCode, String storeName, double longtitude, double latitude, String address, String province, String city, Date openDate){
 		this.id = id;
 		this.storeCode = storeCode;
 		this.storeName = storeName;
 		this.longtitude = longtitude;
 		this.latitude = latitude;
 		this.address = address;
+		this.province = province;
+		this.city = city;
+		this.setOpenDate(openDate);
 	}
 	
 	public int getId() {
@@ -55,6 +63,30 @@ public class StoreDto{
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Date getOpenDate() {
+		return openDate;
+	}
+
+	public void setOpenDate(Date openDate) {
+		this.openDate = openDate;
 	}
 	
 }
