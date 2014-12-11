@@ -109,7 +109,7 @@ public class MainController {
 	@RequestMapping(value = { "/transaction-data"})
 	public String transactionData(ModelMap model) {
 		checkAndAddAuth(model);
-	
+		
 		return "transaction-data";
 	}
 
@@ -124,7 +124,7 @@ public class MainController {
 	
 
 	@RequestMapping(value = { "/customer-data"})
-	public String customerData(ModelMap model) {
+	public String customerData(@RequestParam(required = false) String storeCode, ModelMap model) {
 		checkAndAddAuth(model);
 	
 		return "customer-data";

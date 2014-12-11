@@ -1130,9 +1130,9 @@ body > .header .logo .icon {
 -----------------------------------------------------------------
 */
 .form-control {
-  -webkit-border-radius: 0px !important;
-  -moz-border-radius: 0px !important;
-  border-radius: 0px !important;
+  //-webkit-border-radius: 0px !important;
+  //-moz-border-radius: 0px !important;
+ // border-radius: 0px !important;
   box-shadow: none;
 }
 .form-control:focus {
@@ -3536,4 +3536,9 @@ fieldset[disabled] .btn-vk.active {
 .btn-vk .badge {
   color: #587ea3;
   background-color: #ffffff;
+}
+
+input.ng-invalid{
+	background-color: #f9e9ee;
+    border-color: #bf1e56;
 }

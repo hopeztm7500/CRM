@@ -1,6 +1,6 @@
  var module = angular.module('TransactionData', []);
  
- module.controller('TransactionDataController', function($scope, $http){
+ module.controller('TransactionDataController', function($scope, $http,$routeParams){
 	 
      $http.post('/transactions').success(function(data){
 		 $scope.transactions = data;

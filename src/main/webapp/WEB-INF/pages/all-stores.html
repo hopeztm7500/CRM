@@ -8,15 +8,16 @@
 	name='viewport'>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link
-	href="http://cdn.bootcss.com/bootstrap/3.3.1/css/bootstrap.min.css"
+<link href="assets/css/bootstrap/bootstrap.min.css"
+	rel="stylesheet">
+<link href="assets/css/ions/ionicons.min.css"
 	rel="stylesheet">
 <link href="assets/css/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet">
 
-<!-- Ionicons -->
-<link href="http://cdn.bootcss.com/ionicons/1.5.2/css/ionicons.min.css"
+<link href="assets/css/jquery/jquery-ui.min.css"
 	rel="stylesheet">
+
 <!-- DATA TABLES -->
 <link href="assets/css/datatables/dataTables.bootstrap.css"
 	rel="stylesheet" type="text/css" />
@@ -73,7 +74,7 @@
 
 								<div class="box-body">
 
-									<div id="allmap" class="map"></div>
+									<div id="allmap" class="baidu-map"></div>
 
 
 									<div id="c-filter" class="">
@@ -111,20 +112,18 @@
 
 												<td>{{store.storeName}}</td>
 												<td>{{store.storeCode}}</td>
-												<td>{{store.openDate |date}}</td>
+												<td>{{store.openDate |date : 'yyyy-MM-dd'}}</td>
 												<td>{{store.province}}</td>
 												<td>{{store.city}}</td>
 												<td>{{store.address}}</td>
 												<td><a
-													href="/transactions?storeCode={{store.storeCode}}">交易数据</a></td>
+													href="/transaction-data.html?storeCode={{store.storeCode}}">交易数据</a></td>
 
 											</tr>
 										</tbody>
 									</table>
-									<button class="btn btn-primary fa fa-plus"
-										data-toggle="modal" data-target="#add-new-store-modal">
-										添加新门店
-									</button>
+									<button class="btn btn-primary fa fa-plus" data-toggle="modal"
+										data-target="#add-new-store-modal">添加新门店</button>
 								</div>
 
 								<!-- /.box-body -->
@@ -150,9 +149,9 @@
 
 
 	<!-- Modal -->
-	<div class="modal" id="add-new-store-modal" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		
+	<div class="modal" id="add-new-store-modal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -162,23 +161,76 @@
 					<h4 class="modal-title" id="myModalLabel">添加新门店</h4>
 				</div>
 				<div class="modal-body">
-				
+
+
+					<!-- form start -->
+					<form role="form">
+
+						<div class="form-group">
+							<label for="store-name">门店名称</label> <input type="text" ng-model="newStore.storeName" required
+								class="form-control" id="store-name" placeholder="门店名称">
+						</div>
+						<div class="form-group">
+							<label for="store-code">门店编码</label> <input type="text" ng-model="newStore.storeCode"  required
+								class="form-control" id="store-code" placeholder="门店编码">
+						</div>
+						
+						<div class="form-group">
+							<label for="open-date">开业日期</label> <input type="text" class="datepicker form-control" ng-model="newStore.openDate"
+								 id="open-date" placeholder="开业日期">
+						</div>
+						
+						<div class="form-group">
+							<label for="store-province">省份</label>
+							<select class="select2 form-control" ng-model="selection.province"
+										    ng-change="selectProvince(p)"
+											ng-options="p.name for p in provices"></select>
+						
+							<label for="open-date">城市</label>
+							<select class="select2 form-control" ng-model="selection.city" ng-options="c.name for c in cities" ng-change="selectCity()">
+							</select>
+						</div>
+						
+						<div class="form-group">
+							<label for="open-date">地址</label> 
+							<input type="text" class="form-control" id="store-address" ng-model="selection.address" placeholder="地址">
+						</div>
+						
+						
+						
+						<div class="form-group">
+							<label for="exampleInputEmail1">定位地址</label>
+							<button class="btn btn-success fa fa-map-marker" data-toggle="modal" ng-click="showMap()"
+										data-target="#choose-location-map"></button>
+						</div>
+					</form>
+
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">放弃</button>
-					<button type="button" class="btn btn-primary">保存</button>
+					<button type="button" class="btn btn-default"  data-dismiss="modal">放弃</button>
+					<button type="button" class="btn btn-primary" ng-click="saveNewStore()">保存</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-	<script
-		src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
-		type="text/javascript"></script>
-	<!-- DATA TABES SCRIPT -->
-	
-	
+
+
+	<div class="modal full-screen" id="choose-location-map" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true" >
+		<div class="modal-dialog full-screen">
+		<div id="select-location-map" class="baidu-map"></div>
+		</div>
+    </div>
+    
+    
+    <script src="assets/js/lib/jquery.min.js"></script>
+	<script src="assets/js/lib/bootstrap.min.js"></script>
+	<script src="assets/js/lib/jquery-ui.min.js"></script>
+	<script src="assets/js/lib/raphael-min.js"></script>
+		<!-- DATA TABES SCRIPT -->
+
+
 	<script src="assets/js/plugins/datatables/jquery.dataTables.js"
 		type="text/javascript"></script>
 	<script src="assets/js/plugins/datatables/dataTables.bootstrap.js"
@@ -194,8 +246,7 @@
 		src="http://api.map.baidu.com/api?v=2.0&ak=qFMgNHPq0aKw78GVMkxWITf3"></script>
 
 	<!-- page script -->
-	<script
-		src="http://cdn.bootcss.com/angular.js/1.3.0-beta.13/angular.min.js"></script>
+	<script src="assets/js/lib/angular.min.js"></script>
 	<script src="assets/js/pages/all-stores-controller.js"></script>
 </body>
 </html>

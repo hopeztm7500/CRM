@@ -8,7 +8,7 @@
 	height: 400px;
 }
 
-#allmap img {
+.baidu-map img {
 	max-width: none !important;
 }
 
@@ -21,4 +21,35 @@
 .select2 {
 	width: 25%;
 	display:inline;
+}
+.full-screen{
+	width:100%;
+	height:100%;
+	padding:0px;
+}
+
+#select-location-map{
+	width:100%;
+	height:100%;
+}
+#choose-location-map{
+	margin-top:-30px;
+}
+
+.BMap_bubble_content{
+	margin-top:10px;
+}
+.select-loc-btn{
+	
+	margin-top:10px;
+}
+
+.my-box {
+    position: relative;
+    background-color: #abc;
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin: 5px;
+    cursor:pointer
 }
