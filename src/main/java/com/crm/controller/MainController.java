@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +25,12 @@ import util.NamingUtility;
 import util.RawDataReader;
 
 import com.crm.dto.MemberDto;
+import com.crm.dto.RFMResultDto;
 import com.crm.dto.RawDataRecordDto;
 import com.crm.dto.TransactionDto;
-import com.crm.dto.CompanyStatusDto;
 import com.crm.service.spec.ICompanyService;
 import com.crm.service.spec.IMemberService;
+import com.crm.service.spec.IRfmResultService;
 import com.crm.service.spec.ITransationService;
 import com.crm.service.spec.IAnalysisService;
 
@@ -53,6 +53,9 @@ public class MainController {
 	
 	@Autowired
 	private IAnalysisService analysisService;
+	
+	@Autowired 
+	private IRfmResultService rfmResultService;
 	
 	
 	public boolean checkAndAddAuth(ModelMap model){
@@ -115,6 +118,13 @@ public class MainController {
 
 	
 	
+	@RequestMapping(value = "/rfm-data", method = RequestMethod.POST)
+	public @ResponseBody List<RFMResultDto> getRfmData(){
+		String companyCode = getCompanyCode();
+		return rfmResultService.getAllRfmResult(companyCode);
+	}
+
+	
 	@RequestMapping(value = { "/helloworld"})
 	public String helloworld(ModelMap model) {
 		checkAndAddAuth(model);
@@ -133,9 +143,7 @@ public class MainController {
 	@RequestMapping(value = "/members", method = RequestMethod.POST)
 	public @ResponseBody List<MemberDto> getMembers(){
 		String companyCode = getCompanyCode();
-		
 		return memberService.getAllMember(companyCode);
-
 	}
 	
 	@RequestMapping(value = "/transactions", method = RequestMethod.POST)
