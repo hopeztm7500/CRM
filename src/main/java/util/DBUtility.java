@@ -19,8 +19,14 @@ public class DBUtility {
 		return code + "_A_COMPANY_STATUS";
 	}
 	
+	public static String MemberRFMTableName(String code){
+		return code + "_A_MEMBERS_RFM";
+	}
+	public static String MemberRFMCategoryName(String code){
+		return code + "_A_RFM_CATEGORY";
+	}
+	
 	public static String GenerateSQLOnCompany(String companyCode, String baseSQL){
 		return String.format(baseSQL, companyCode);
-
 	}
 }

@@ -2,6 +2,7 @@ package com.crm.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,14 @@ import util.DBUtility;
 
 import com.crm.dao.spec.IRfmResultDao;
 import com.crm.dto.RFMResultDto;
-import com.crm.service.spec.IRfmResultService;
 
 @Repository
 public class RfmResultDaoImpl implements IRfmResultDao {
 	
 	
-	private static String SQL_QUERY = "select id, r_score, f_score, m_score, rfm_score, recency, frequency, monetary, "
-			+ "rfm_category, share_of_wallet, update_date from %s ";
+	private static String SQL_QUERY = "select RFM.id, RFM.r_score, RFM.f_score, RFM.m_score, RFM.rfm_score, RFM.recency, RFM.frequency, "
+			+ "RFM.monetary, "
+			+ "RFM.rfm_category, RFM.share_of_wallet, RFM.update_date, DES.description from %s RFM, %s DES where DES.category = RFM.rfm_category";
 	
 	private static class RfmMapper implements RowMapper<RFMResultDto>{
 
@@ -36,9 +37,13 @@ public class RfmResultDaoImpl implements IRfmResultDao {
 			long recency = rs.getLong("recency");
 			int frequency = rs.getInt("frequency");
 			double monetary = rs.getDouble("monetary");
-			int rfmCategory = rs.getInt("rfmCategory");
+			int rfmCategory = rs.getInt("rfm_category");
 			
-			return new RFMResultDto(id, rScore, fScore, mScore, rfmScore, recency, frequency, monetary, rfmCategory);
+			double shareOfWallet = rs.getDouble("share_of_wallet");
+			long updateDate = rs.getLong("update_date");
+			String rfmCategoryName = rs.getString("description");
+			
+			return new RFMResultDto(id, rScore, fScore, mScore, rfmScore, recency, frequency, monetary, rfmCategory, shareOfWallet, rfmCategoryName, new Date(updateDate));
 		
 		}
 		
@@ -50,7 +55,7 @@ public class RfmResultDaoImpl implements IRfmResultDao {
 	@Override
 	public List<RFMResultDto> getAllRfmResult(String companyCode) {
 		
-		String SQL = DBUtility.GenerateSQLOnCompany(companyCode, SQL_QUERY);
+		String SQL = String.format(SQL_QUERY, DBUtility.MemberRFMTableName(companyCode), DBUtility.MemberRFMCategoryName(companyCode));
 		return jdbcTemplate.query(SQL, new RfmMapper());
 	}
 

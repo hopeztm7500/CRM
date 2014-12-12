@@ -1,5 +1,7 @@
 package com.crm.dto;
 
+import java.util.Date;
+
 public class RFMResultDto {
 	private String id;
 	private double rScore;
@@ -10,8 +12,12 @@ public class RFMResultDto {
 	private int frequency;
 	private double monetary;
 	private int rfmCategory;
+	private double shareOfWallet;
+	private String rfmCategoryName;
+	private Date updateDate;
 	
-	public RFMResultDto(String id, double rScore, double fScore, double mScore, double rfmScore, long recency, int frequency, double monetary, int rfmCategory){
+	public RFMResultDto(String id, double rScore, double fScore, double mScore, double rfmScore, long recency, int frequency, 
+			double monetary, int rfmCategory, double shareOfWallet, String rfmCategoryName, Date updateDate){
 		this.id = id;
 		this.rScore = rScore;
 		this.fScore = fScore;
@@ -21,6 +27,9 @@ public class RFMResultDto {
 		this.frequency = frequency;
 		this.monetary = monetary;
 		this.rfmCategory = rfmCategory;
+		this.shareOfWallet = shareOfWallet;
+		this.rfmCategoryName = rfmCategoryName;
+		this.setUpdateDate(updateDate);
 		
 	}
 	public String getId() {
@@ -76,5 +85,23 @@ public class RFMResultDto {
 	}
 	public void setRfmCategory(int rfmCategory) {
 		this.rfmCategory = rfmCategory;
+	}
+	public String getRfmCategoryName() {
+		return rfmCategoryName;
+	}
+	public void setRfmCategoryName(String rfmCategoryName) {
+		this.rfmCategoryName = rfmCategoryName;
+	}
+	public double getShareOfWallet() {
+		return shareOfWallet;
+	}
+	public void setShareOfWallet(double shareOfWallet) {
+		this.shareOfWallet = shareOfWallet;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 }
