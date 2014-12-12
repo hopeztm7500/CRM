@@ -11,11 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import util.DBUtility;
 
+import com.crm.dao.spec.IRfmResultDao;
 import com.crm.dto.RFMResultDto;
 import com.crm.service.spec.IRfmResultService;
 
 @Repository
-public class RfmResultDaoImpl implements IRfmResultService {
+public class RfmResultDaoImpl implements IRfmResultDao {
 	
 	
 	private static String SQL_QUERY = "select id, r_score, f_score, m_score, rfm_score, recency, frequency, monetary, "
