@@ -76,23 +76,7 @@ public class MainController {
 				.getAuthentication();
 		return "SDFX";
 	}
-	
 
-	
-	
-	
-	@RequestMapping(value="memberDetail")
-	public String getCustomerById(@RequestParam String id, ModelMap model) {
-		
-		
-		MemberDto member = memberService.getMemberById(getCompanyCode(), id);
-		model.put("member", member);
-		
-		return "member-detail";
-	}
-	
-	
-	
 	@RequestMapping(value = { "/", "index" })
 	public String index(ModelMap model) {
 		checkAndAddAuth(model);
@@ -140,11 +124,7 @@ public class MainController {
 		return "customer-data";
 	}
 	
-	@RequestMapping(value = "/members", method = RequestMethod.POST)
-	public @ResponseBody List<MemberDto> getMembers(){
-		String companyCode = getCompanyCode();
-		return memberService.getAllMember(companyCode);
-	}
+	
 	
 	@RequestMapping(value = "/transactions", method = RequestMethod.POST)
 	public @ResponseBody List<TransactionDto> getTransactions(){
@@ -153,10 +133,6 @@ public class MainController {
 		return transationService.getAllTransaction(companyCode);
 
 	}
-	
-	
-	
-	
 	
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	public @ResponseBody String uploadFileHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, ModelMap model) {
