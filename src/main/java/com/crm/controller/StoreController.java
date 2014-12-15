@@ -7,7 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crm.dto.StoreDto;
@@ -33,9 +35,26 @@ public class StoreController {
 	}
 	
 	
+	
 	@RequestMapping(value="/stores")
 	public String allStores(ModelMap model) {
 		return "all-stores";
 	}
 	
+	
+	@RequestMapping(value = { "/add-new-store" })
+	public void updateCompanyStatus() {
+		
+		
+	}
+
+	@RequestMapping(value = "/add-new-store", method = RequestMethod.POST)
+	public @ResponseBody String addArticle(@RequestBody StoreDto storeDto) {
+		String companyCode = getCompanyCode();
+		storeService.addStore(companyCode, storeDto);
+		return "success";
+	}
+	
+	
 }
+

@@ -27,8 +27,17 @@ public class StoreServiceImpl implements IStoreService {
 
 	@Override
 	public void addStore(String companyCode, StoreDto store) {
-		// TODO Auto-generated method stub
+		storeDao.addStore(companyCode, store);
+	}
 
+	@Override
+	public List<StoreDto> getFavirateStores(String companyCode, String memberId) {
+		return storeDao.getFavirateStores(companyCode, memberId);
+	}
+
+	@Override
+	public void addStores(String companyCode, List<StoreDto> stores) {
+		storeDao.addStores(companyCode, stores);
 	}
 
 }

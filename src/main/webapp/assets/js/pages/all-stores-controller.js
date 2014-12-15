@@ -53,9 +53,17 @@ module.controller('AllStoresController', function($scope, $http) {
 		$scope.newStore.province = $scope.selection.province.name;
 		$scope.newStore.city = $scope.selection.city.name;
 		$scope.newStore.address = $scope.selection.address;
-		$scope.stores.push($scope.newStore);
-		$scope.newStore = {};
-		$('#add-new-store-modal').modal('hide');
+		
+		$scope.post('/add-new-store', $scope.newStore).success(function(){
+			
+			$scope.stores.push($scope.newStore);
+			$scope.newStore = {};
+			$('#add-new-store-modal').modal('hide');
+			
+		}.fail(function(info){
+			alert('failed' + info);
+		});
+		
 		
 	};
 	
