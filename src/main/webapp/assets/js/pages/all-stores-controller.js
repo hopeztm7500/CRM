@@ -54,13 +54,13 @@ module.controller('AllStoresController', function($scope, $http) {
 		$scope.newStore.city = $scope.selection.city.name;
 		$scope.newStore.address = $scope.selection.address;
 		
-		$scope.post('/add-new-store', $scope.newStore).success(function(){
+		$http.post('add-new-store', $scope.newStore).success(function(){
 			
 			$scope.stores.push($scope.newStore);
 			$scope.newStore = {};
 			$('#add-new-store-modal').modal('hide');
 			
-		}.fail(function(info){
+		}).fail(function(info){
 			alert('failed' + info);
 		});
 		

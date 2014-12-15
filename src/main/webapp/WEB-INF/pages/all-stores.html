@@ -14,7 +14,7 @@
 	rel="stylesheet">
 <link href="assets/css/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet">
-
+\
 <link href="assets/css/jquery/jquery-ui.min.css"
 	rel="stylesheet">
 
@@ -108,7 +108,8 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-click="navigateTo(store)" ng-repeat="store in stores">
+											<tr ng-click="navigateTo(store)" ng-repeat="store in stores"
+											ng-hide="(stores | filter: {source: sourceFilter).length == 0">
 
 												<td>{{store.storeName}}</td>
 												<td>{{store.storeCode}}</td>

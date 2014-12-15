@@ -42,11 +42,7 @@ public class StoreController {
 	}
 	
 	
-	@RequestMapping(value = { "/add-new-store" })
-	public void updateCompanyStatus() {
-		
-		
-	}
+	
 
 	@RequestMapping(value = "/add-new-store", method = RequestMethod.POST)
 	public @ResponseBody String addArticle(@RequestBody StoreDto storeDto) {
