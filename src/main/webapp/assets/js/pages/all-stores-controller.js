@@ -53,8 +53,34 @@ module.controller('AllStoresController', function($scope, $http) {
 		$scope.newStore.province = $scope.selection.province.name;
 		$scope.newStore.city = $scope.selection.city.name;
 		$scope.newStore.address = $scope.selection.address;
+		$scope.newStore.id = 1;
 		
-		$http.post('add-new-store', $scope.newStore).success(function(){
+		$.ajax({
+		    type: 'POST',
+		    url: '/add-new-store',
+		  
+		    data : JSON.stringify($scope.newStore),
+			contentType : "application/json",
+			
+		    success: function() {
+		    	alert('this is good');
+		    }
+		});
+		
+		/*
+		$http({
+		    method: 'POST',
+		    url: 'add-new-store',
+		    data: JSON.stringify($scope.newStore),
+		    encoding:'utf8',
+		    headers: {'Content-Type': 'application/json'}
+		}).success(function(result){
+			
+			alert(result);
+		});
+		*/
+		/*
+		$http.post('add-new-store', JSON.stringify($scope.newStore)).success(function(){
 			
 			$scope.stores.push($scope.newStore);
 			$scope.newStore = {};
@@ -62,7 +88,7 @@ module.controller('AllStoresController', function($scope, $http) {
 			
 		}).fail(function(info){
 			alert('failed' + info);
-		});
+		});*/
 		
 		
 	};
@@ -102,9 +128,13 @@ module.controller('AllStoresController', function($scope, $http) {
 				initLocation(locationMap);
 				locationMap.addEventListener("click",
 					selectPoint);
+				initLocation(locationMap);
 			}, 0);
 		}
-		initLocation(locationMap);
+		else{
+			initLocation(locationMap);
+				
+		}
 		
 		
 	}

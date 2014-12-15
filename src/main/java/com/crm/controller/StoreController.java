@@ -45,7 +45,7 @@ public class StoreController {
 	
 
 	@RequestMapping(value = "/add-new-store", method = RequestMethod.POST)
-	public @ResponseBody String addArticle(@RequestBody StoreDto storeDto) {
+	@ResponseBody public String addNewStore(@RequestBody StoreDto storeDto) {
 		String companyCode = getCompanyCode();
 		storeService.addStore(companyCode, storeDto);
 		return "success";
