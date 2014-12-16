@@ -27,7 +27,7 @@ public class StoreDaoImpl implements IStoreDao{
 	private static String SQL_CREATE_TABLE = "CREATE TABLE %s (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, store_code varchar(50), store_name varchar(50), lon double, lat double, "
 			+ " address varchar(50), province varchar(30), city varchar(30), open_date date) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci ";
 	
-	private static String SQL_INSERT = "INSERT INTO table %s(store_code, store_name, lon, lat, address, province, city, open_date) values(?, ?, ?, ?, ?, ?, ?, ?)";
+	private static String SQL_INSERT = "INSERT INTO %s(store_code, store_name, lon, lat, address, province, city, open_date) values(?, ?, ?, ?, ?, ?, ?, ?)";
 	private static String SQL_QUERY_BY_ID = "SELECT id, store_code, store_name, lon, lat, address, province, city, open_date from %s where id=?";
 	private static String SQL_QUERY_ALL = "SELECT id, store_code, store_name, lon, lat, address, province, city, open_date from %s";
 	
