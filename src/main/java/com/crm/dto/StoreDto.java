@@ -16,6 +16,9 @@ public class StoreDto{
 	private String city;
 	private String address;
 	
+	public StoreDto(){
+		
+	}
 	public StoreDto(int id, String storeCode, String storeName, double longtitude, double latitude, String address, String province, String city, Date openDate){
 		this.id = id;
 		this.storeCode = storeCode;
