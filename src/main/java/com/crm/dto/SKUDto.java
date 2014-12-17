@@ -10,19 +10,19 @@ import java.util.List;
  */
 public class SKUDto {
 
-	private String skuId;
+	private String skuCode;
 	private String skuName;
 	
-	public SKUDto(String skuId, String skuName){
-		this.skuId = skuId;
+	public SKUDto(String skuCode, String skuName){
+		this.skuCode = skuCode;
 		this.skuName = skuName;
 	}
 	
-	public String getSkuId() {
-		return skuId;
+	public String getSkuCode() {
+		return skuCode;
 	}
-	public void setSkuId(String skuId) {
-		this.skuId = skuId;
+	public void setSkuCode(String skuCode) {
+		this.skuCode = skuCode;
 	}
 	public String getSkuName() {
 		return skuName;

@@ -8,6 +8,9 @@ public class DBUtility {
 		return String.format(DBUtility.SQL_FOREIGN_KEY, myTable+"_forkey", myColumn, targetTable, targetColumn);
 	}
 	
+	public static String companySkuTableName(String code){
+		return code + "_SKUS";
+	}
 	public static String CompanyStoresTableName(String code){
 		return code + "_STORES";
 	}

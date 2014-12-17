@@ -6,13 +6,11 @@
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
-<link href="assets/css/bootstrap/bootstrap.min.css"
-	rel="stylesheet">
-<link href="assets/css/ions/ionicons.min.css"
-	rel="stylesheet">
+<link href="assets/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="assets/css/ions/ionicons.min.css" rel="stylesheet">
 <link href="assets/css/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet">
-	
+
 <!-- DATA TABLES -->
 <link href="assets/css/datatables/dataTables.bootstrap.css"
 	rel="stylesheet" type="text/css" />
@@ -77,6 +75,59 @@
 										<dt>生日</dt>
 										<dd ng-bind="member.birthday"></dd>
 									</dl>
+								</div>
+								<!-- /.box-body -->
+							</div>
+							<!-- /.box -->
+						</div>
+						<!-- /.box -->
+
+						<div class="box">
+
+
+							<!-- /.box-header -->
+							<div class="box box-solid">
+								<div class="box-header">
+									<i class="fa fa-bar-chart-o"></i>
+									<h3 class="box-title">RFM 分析</h3>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<dl class="dl-horizontal">
+										<dt>R</dt>
+										<dd ng-bind="rfm.rScore"></dd>
+										<dt>F</dt>
+										<dd ng-bind="rfm.fScore"></dd>
+										<dt>M</dt>
+										<dd ng-bind="rfm.mScore"></dd>
+
+									</dl>
+								</div>
+								<!-- /.box-body -->
+							</div>
+							<!-- /.box -->
+						</div>
+						<!-- /.box -->
+
+						<div class="box">
+
+
+							<!-- /.box-header -->
+							<div class="box box-solid">
+								<div class="box-header">
+									<i class="fa fa-bar-chart-o"></i>
+									<h3 class="box-title">最喜欢的产品</h3>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+
+									<ul ng-repeat="sku in items">
+
+									</ul>
+
+
+
+
 								</div>
 								<!-- /.box-body -->
 							</div>
