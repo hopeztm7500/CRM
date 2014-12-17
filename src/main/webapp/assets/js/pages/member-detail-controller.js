@@ -15,21 +15,9 @@ module.controller('MemberDetailController', function($scope, $http) {
 	
 	$http.post('member-detail-info', getUrlParameter('id')).success(function(data){
 	    $scope.member = data.basic;
-	    
-	    
+	    $scope.favoriteStores = data.favoriteStores;
+	    $scope.favoriteSkus = data.skus;
+	    $scope.rfm = data.rfm;
 	});
 	
-});
-
-module.directive("jqTable", function() {
-	return function($scope, element, attrs) {
-		$scope.$watch("member", function(value) {//I change here
-			var val = value || null;
-			if (val) {
-
-			}
-
-		});
-
-	};
 });

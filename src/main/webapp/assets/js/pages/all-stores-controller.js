@@ -54,32 +54,7 @@ module.controller('AllStoresController', function($scope, $http) {
 		$scope.newStore.city = $scope.selection.city.name;
 		$scope.newStore.address = $scope.selection.address;
 		$scope.newStore.id = 1;
-		
-		$.ajax({
-		    type: 'POST',
-		    url: '/add-new-store',
-		  
-		    data : JSON.stringify($scope.newStore),
-			contentType : "application/json",
-			
-		    success: function() {
-		    	alert('this is good');
-		    }
-		});
-		
-		/*
-		$http({
-		    method: 'POST',
-		    url: 'add-new-store',
-		    data: JSON.stringify($scope.newStore),
-		    encoding:'utf8',
-		    headers: {'Content-Type': 'application/json'}
-		}).success(function(result){
-			
-			alert(result);
-		});
-		*/
-		/*
+	
 		$http.post('add-new-store', JSON.stringify($scope.newStore)).success(function(){
 			
 			$scope.stores.push($scope.newStore);
@@ -88,7 +63,7 @@ module.controller('AllStoresController', function($scope, $http) {
 			
 		}).fail(function(info){
 			alert('failed' + info);
-		});*/
+		});
 		
 		
 	};
@@ -177,21 +152,14 @@ module.controller('AllStoresController', function($scope, $http) {
 
 		geoc.getLocation(e.point, function(rs) {
 			var addComp = rs.addressComponents;
-			var detailInfo = addComp.province
-			+ addComp.city
-			+ addComp.district
-			+ addComp.street
-			+ addComp.streetNumber;
+			var detailInfo = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
 			var btn = "<br><button id='select-loc-button' class='btn btn-sm btn-primary select-loc-btn' >确定</button>"
-			var windowInfo = new BMap.InfoWindow(
-				detailInfo + btn);
+			var windowInfo = new BMap.InfoWindow(detailInfo + btn);
 			tempMarker.openInfoWindow(windowInfo);
-		
-			$scope.selection.province = findProvince(addComp.province);
-			$scope.newStore.longtitude = e.point.lng;
-			$scope.newStore.latitude = e.point.lat;
 			
+			$scope.selection.province = findProvince(addComp.province);
 			$scope.cities = $scope.selection.province.sub;
+			
 			if(isDirectCity($scope.selection.province.name)){
 				$scope.selection.city = findCity($scope.selection.province, addComp.district);
 				$scope.selection.address = addComp.street + addComp.streetNumber;
@@ -201,12 +169,15 @@ module.controller('AllStoresController', function($scope, $http) {
 				$scope.selection.address = addComp.district + addComp.street + addComp.streetNumber;
 			}
 			
-			
-		
 			setTimeout(function(){
 				$('#select-loc-button').on('click', function(){
 					$scope.$apply(function() {
+						
+						$scope.newStore.longtitude = e.point.lng;
+						$scope.newStore.latitude = e.point.lat;
+						
 						$('#choose-location-map').modal('hide');
+						
 					});
 				})
 			}, 0);
