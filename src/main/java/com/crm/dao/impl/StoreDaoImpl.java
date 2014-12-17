@@ -99,7 +99,8 @@ public class StoreDaoImpl implements IStoreDao{
 				ps.setString(5, store.getAddress());
 				ps.setString(6, store.getProvince());;
 				ps.setString(7, store.getCity());
-				ps.setDate(8, new java.sql.Date(store.getOpenDate().getTime()));
+				ps.setDate(8, store.getOpenDate() == null ? new java.sql.Date(new Date().getTime()) : 
+					new java.sql.Date(store.getOpenDate().getTime()));
 			}
 		} );
 	}

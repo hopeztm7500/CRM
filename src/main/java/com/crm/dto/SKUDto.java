@@ -32,7 +32,7 @@ public class SKUDto {
 	}
 	
 	
-	public List<SKUDto> GenerateTestData(){
+	public static List<SKUDto> GenerateTestData(){
 		List<SKUDto> dtos = new ArrayList<SKUDto>();
 		dtos.add(new SKUDto("1", "面包"));
 		dtos.add(new SKUDto("2", "香肠"));

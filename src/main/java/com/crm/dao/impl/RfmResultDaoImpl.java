@@ -23,6 +23,9 @@ public class RfmResultDaoImpl implements IRfmResultDao {
 			+ "RFM.monetary, "
 			+ "RFM.rfm_category, RFM.share_of_wallet, RFM.update_date, DES.description from %s RFM, %s DES where DES.category = RFM.rfm_category";
 	
+	private static String QUYER_CONDITION_MEMBER_ID = " and RFM.id = ? ";
+	
+	
 	private static class RfmMapper implements RowMapper<RFMResultDto>{
 
 		@Override
@@ -57,6 +60,17 @@ public class RfmResultDaoImpl implements IRfmResultDao {
 		
 		String SQL = String.format(SQL_QUERY, DBUtility.MemberRFMTableName(companyCode), DBUtility.MemberRFMCategoryName(companyCode));
 		return jdbcTemplate.query(SQL, new RfmMapper());
+	}
+
+	@Override
+	public RFMResultDto getMyRfmResult(String companyCode, String memberId) {
+		
+		String SQL = String.format(SQL_QUERY + QUYER_CONDITION_MEMBER_ID, DBUtility.MemberRFMTableName(companyCode), DBUtility.MemberRFMCategoryName(companyCode));
+		List<RFMResultDto> rfmResultDtos = jdbcTemplate.query(SQL, new RfmMapper());
+		if(rfmResultDtos.size() > 0){
+			return rfmResultDtos.get(0);
+		}
+		return null;
 	}
 
 }

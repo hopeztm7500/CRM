@@ -20,4 +20,9 @@ public class RfmResultServiceImpl implements IRfmResultService {
 		return rfmResultDao.getAllRfmResult(companyCode);
 	}
 
+	@Override
+	public RFMResultDto getMyRfmResult(String companyCode, String memberId) {
+		return rfmResultDao.getMyRfmResult(companyCode, memberId);
+	}
+
 }
