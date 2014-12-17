@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crm.dao.spec.IStoreDao;
+import com.crm.dto.StoreConDto;
 import com.crm.dto.StoreDto;
 import com.crm.service.spec.IStoreService;
 
@@ -31,7 +32,7 @@ public class StoreServiceImpl implements IStoreService {
 	}
 
 	@Override
-	public List<StoreDto> getFavirateStores(String companyCode, String memberId) {
+	public List<StoreConDto> getFavirateStores(String companyCode, String memberId) {
 		return storeDao.getFavirateStores(companyCode, memberId);
 	}
 

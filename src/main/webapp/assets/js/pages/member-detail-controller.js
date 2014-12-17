@@ -12,9 +12,13 @@ module.controller('MemberDetailController', function($scope, $http) {
 			}
 		}
 	}
-	$http.post('member-detail-info','11').success(function(){
-	    alert('this is success');
+	
+	$http.post('member-detail-info', getUrlParameter('id')).success(function(data){
+	    $scope.member = data.basic;
+	    
+	    
 	});
+	
 });
 
 module.directive("jqTable", function() {

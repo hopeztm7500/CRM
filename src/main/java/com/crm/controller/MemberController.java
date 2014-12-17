@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import com.crm.dto.MemberDetailData;
 import com.crm.dto.MemberDto;
 import com.crm.dto.RFMResultDto;
 import com.crm.dto.SKUDto;
+import com.crm.dto.StoreConDto;
 import com.crm.dto.StoreDto;
 import com.crm.service.spec.IMemberService;
 import com.crm.service.spec.IRfmResultService;
@@ -51,10 +53,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/member-detail-info", method = RequestMethod.POST)
-	public @ResponseBody MemberDetailData getMemberDetailInfo(@RequestParam String id){
+	public @ResponseBody MemberDetailData getMemberDetailInfo(@RequestBody String id){
 		String companyCode = getCompanyCode();
-		
-		List<StoreDto> stores =  storeService.getFavirateStores(companyCode, id);
+		List<StoreConDto> stores =  storeService.getFavirateStores(companyCode, id);
 		RFMResultDto myRfm = rfmResultService.getMyRfmResult(companyCode, id);
 		MemberDto member = memberService.getMemberById(companyCode, id);
 		List<SKUDto> skus = skuService.getFavoriteSkus(companyCode, id);

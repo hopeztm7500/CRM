@@ -1,5 +1,6 @@
 package com.crm.dao.impl;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +23,7 @@ public class RfmResultDaoImpl implements IRfmResultDao {
 	
 	private static String SQL_QUERY = "select RFM.id, RFM.r_score, RFM.f_score, RFM.m_score, RFM.rfm_score, RFM.recency, RFM.frequency, "
 			+ "RFM.monetary, "
-			+ "RFM.rfm_category, RFM.share_of_wallet, RFM.update_date, DES.description from %s RFM, %s DES where DES.category = RFM.rfm_category";
+			+ "RFM.rfm_category, RFM.share_of_wallet, RFM.update_date, DES.description from %s RFM, %s DES where DES.category = RFM.rfm_category ";
 	
 	private static String QUYER_CONDITION_MEMBER_ID = " and RFM.id = ? ";
 	
@@ -63,10 +65,18 @@ public class RfmResultDaoImpl implements IRfmResultDao {
 	}
 
 	@Override
-	public RFMResultDto getMyRfmResult(String companyCode, String memberId) {
+	public RFMResultDto getMyRfmResult(String companyCode, final String memberId) {
 		
 		String SQL = String.format(SQL_QUERY + QUYER_CONDITION_MEMBER_ID, DBUtility.MemberRFMTableName(companyCode), DBUtility.MemberRFMCategoryName(companyCode));
-		List<RFMResultDto> rfmResultDtos = jdbcTemplate.query(SQL, new RfmMapper());
+		List<RFMResultDto> rfmResultDtos = jdbcTemplate.query(SQL, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				 ps.setString(1, memberId);
+				
+			}
+		}, new RfmMapper());
+		
 		if(rfmResultDtos.size() > 0){
 			return rfmResultDtos.get(0);
 		}

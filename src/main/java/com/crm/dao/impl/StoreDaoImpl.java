@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 import util.DBUtility;
 
 import com.crm.dao.spec.IStoreDao;
+import com.crm.dto.StoreConDto;
 import com.crm.dto.StoreDto;
 
 
@@ -30,7 +31,8 @@ public class StoreDaoImpl implements IStoreDao{
 	private static String SQL_INSERT = "INSERT INTO %s(store_code, store_name, lon, lat, address, province, city, open_date) values(?, ?, ?, ?, ?, ?, ?, ?)";
 	private static String SQL_QUERY_BY_ID = "SELECT id, store_code, store_name, lon, lat, address, province, city, open_date from %s where id=?";
 	private static String SQL_QUERY_ALL = "SELECT id, store_code, store_name, lon, lat, address, province, city, open_date from %s";
-	
+	private static String SQL_FAV_STORES = "select S.id, S.store_code, S.store_name, S.lon, S.lat, count(T.store_code) from %s S, %s T "
+			+ " where T.store_code = S.store_code and T.member_id = ? group by(T.store_code) order by count(T.store_code) DESC";
 	
 	
 	private static class StoreMapper implements RowMapper<StoreDto>{
@@ -47,6 +49,23 @@ public class StoreDaoImpl implements IStoreDao{
 			Date openDate = new Date(rs.getDate(9).getTime());
 			
 			return new StoreDto(id, code, name, lon, lat, address, province, city, openDate);
+		}
+		
+	}
+	
+	private static class StoreConMapper implements RowMapper<StoreConDto>{
+		@Override
+		public StoreConDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+			int storeId = rs.getInt(1);
+			String storeCode = rs.getString(2);
+			String storeName = rs.getString(3);
+			double lon = rs.getDouble(4);
+			double lat = rs.getDouble(5);
+			int count = rs.getInt(6);
+			
+			StoreDto storeDto = new StoreDto(storeId, storeCode, storeName, lon, lat, "", "", "", null);
+			return new StoreConDto(storeDto, count);
+			
 		}
 		
 	}
@@ -117,9 +136,17 @@ public class StoreDaoImpl implements IStoreDao{
 	}
 
 	@Override
-	public List<StoreDto> getFavirateStores(String companyCode, String memberId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StoreConDto> getFavirateStores(String companyCode, final String memberId) {
+		String storeTable = DBUtility.CompanyStoresTableName(companyCode);
+		String transTable = DBUtility.TransTableName(companyCode);
+		String SQL = String.format(SQL_FAV_STORES, storeTable, transTable);
+		
+		return jdbcTemplate.query(SQL, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, memberId);
+			}
+		}, new StoreConMapper());
 	}
 
 	@Override
