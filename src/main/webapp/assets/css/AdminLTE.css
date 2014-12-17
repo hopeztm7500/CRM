@@ -3542,3 +3542,7 @@ input.ng-invalid{
 	background-color: #f9e9ee;
     border-color: #bf1e56;
 }
+.fill-all{
+	height:100%;
+	width:100%;
+}

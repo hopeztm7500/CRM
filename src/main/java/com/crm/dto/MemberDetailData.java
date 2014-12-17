@@ -7,7 +7,7 @@ public class MemberDetailData {
 	private MemberDto basic;
 	private RFMResultDto rfm;
 	private List<StoreConDto> favoriteStores;
-	private List<SKUDto> skus;
+	private List<SKUConDto> skus;
 	
 	
 	public MemberDto getBasic() {
@@ -28,10 +28,10 @@ public class MemberDetailData {
 	public void setFavoriteStores(List<StoreConDto> favoriteStores) {
 		this.favoriteStores = favoriteStores;
 	}
-	public List<SKUDto> getSkus() {
+	public List<SKUConDto> getSkus() {
 		return skus;
 	}
-	public void setSkus(List<SKUDto> skus) {
+	public void setSkus(List<SKUConDto> skus) {
 		this.skus = skus;
 	}
 	

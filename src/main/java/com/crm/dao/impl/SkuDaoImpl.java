@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.dbutils.wrappers.StringTrimmedResultSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import util.DBUtility;
 
 import com.crm.dao.spec.ISkuDao;
+import com.crm.dto.SKUConDto;
 import com.crm.dto.SKUDto;
 
 @Repository
@@ -25,6 +27,9 @@ public class SkuDaoImpl implements ISkuDao {
 	private static String SQL_INSERT = "INSERT INTO %s (sku_code,  sku_name) values(?, ?)";
 	private static String SQL_QUERY_ALL = "SELECT (sku_code, sku_name) from %s ";
 	private static String SQL_QUERY_BY_CODE = "SELECT (sku_code, sku_name) from %s where sku_code = ? ";
+	private static String SQL_QUERY_FAV = "select S.sku_code, S.sku_name, count(T.sku_number) from %s S, %s T "
+			+ " where T.sku_number = S.sku_code and T.member_id = ? group by(T.sku_number) order by count(T.sku_number) DESC";
+	
 	
 	private static class SkuMapper implements RowMapper<SKUDto>{
 		@Override
@@ -33,6 +38,18 @@ public class SkuDaoImpl implements ISkuDao {
 			String skuName = rs.getString(2);
 			return new SKUDto(skuCode, skuName);
 		}
+	}
+	
+	private static class SkuConMapper implements RowMapper<SKUConDto>{
+
+		@Override
+		public SKUConDto mapRow(ResultSet rs, int index) throws SQLException {
+			String skuCode = rs.getString(1);
+			String skuName = rs.getString(2);
+			int count = rs.getInt(3);
+			return new SKUConDto(new SKUDto(skuCode, skuName), count);
+		}
+		
 	}
 	
 	
@@ -103,12 +120,27 @@ public class SkuDaoImpl implements ISkuDao {
 		});
 	}
 
-	@Override
-	public List<SKUDto> getFavoriteSkus(String companyCode, String memberId) {
-		// TODO Auto-generated method stub
-		return SKUDto.GenerateTestData();
+	public void insertTestData(String companyCode){
+		
+		String tableName = DBUtility.companySkuTableName(companyCode);
+		String createTablesql = String.format(SQL_CREATE_TABLE, tableName);
+		jdbcTemplate.update(createTablesql);
+		addSkuByBatch(companyCode, SKUDto.GenerateTestData());
 	}
 	
+	@Override
+	public List<SKUConDto> getFavoriteSkus(String companyCode, final String memberId) {
+		String transTable = DBUtility.TransTableName(companyCode);
+		String skuTable = DBUtility.companySkuTableName(companyCode);
+		String SQL = String.format(SQL_QUERY_FAV, skuTable, transTable);
+		return jdbcTemplate.query(SQL, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, memberId);
+			}
+		}, new SkuConMapper());
+	}
 	
 
 }

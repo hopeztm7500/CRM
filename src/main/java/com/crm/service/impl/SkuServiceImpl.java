@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crm.dao.spec.ISkuDao;
+import com.crm.dto.SKUConDto;
 import com.crm.dto.SKUDto;
 import com.crm.service.spec.ISkuService;
 
@@ -37,7 +38,7 @@ public class SkuServiceImpl implements ISkuService {
 	}
 
 	@Override
-	public List<SKUDto> getFavoriteSkus(String companyCode, String memberId) {
+	public List<SKUConDto> getFavoriteSkus(String companyCode, String memberId) {
 		return skuDao.getFavoriteSkus(companyCode, memberId);
 	}
 

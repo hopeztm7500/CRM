@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.crm.dto.MemberDetailData;
 import com.crm.dto.MemberDto;
 import com.crm.dto.RFMResultDto;
+import com.crm.dto.SKUConDto;
 import com.crm.dto.SKUDto;
 import com.crm.dto.StoreConDto;
 import com.crm.dto.StoreDto;
@@ -58,7 +59,7 @@ public class MemberController {
 		List<StoreConDto> stores =  storeService.getFavirateStores(companyCode, id);
 		RFMResultDto myRfm = rfmResultService.getMyRfmResult(companyCode, id);
 		MemberDto member = memberService.getMemberById(companyCode, id);
-		List<SKUDto> skus = skuService.getFavoriteSkus(companyCode, id);
+		List<SKUConDto> skus = skuService.getFavoriteSkus(companyCode, id);
 		
 		
 		
