@@ -79,6 +79,11 @@ module.controller('MemberDetailController', function($scope, $http) {
 	     
 	     });
 	}
+	
+	function drawFavirateStoreMap(data){
+		
+	}
+	
 	$http.post('member-detail-info', getUrlParameter('id')).success(function(data){
 	    $scope.member = data.basic;
 	    $scope.favoriteStores = data.favoriteStores;
@@ -86,6 +91,7 @@ module.controller('MemberDetailController', function($scope, $http) {
 	    $scope.rfm = data.rfm;
 	    
 	    drawFavProductChart($scope.favoriteSkus);
+	    drawFavirateStoreMap($scope.favoriteSkus);
 	    
 	});
 	
