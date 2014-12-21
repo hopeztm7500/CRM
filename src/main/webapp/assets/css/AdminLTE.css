@@ -3546,3 +3546,6 @@ input.ng-invalid{
 	height:100%;
 	width:100%;
 }
+.info-panel{
+	height:400px;
+}

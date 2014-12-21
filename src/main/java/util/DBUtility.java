@@ -4,7 +4,10 @@ public class DBUtility {
 	
 	 
     private static String SQL_FOREIGN_KEY = "CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s) ON DELETE CASCADE";
-	public static String GenerateForeignKeyPart(String myTable, String myColumn, String targetTable, String targetColumn){
+
+	public static String SQL_DB_SETTING = " ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci ";
+    
+    public static String GenerateForeignKeyPart(String myTable, String myColumn, String targetTable, String targetColumn){
 		return String.format(DBUtility.SQL_FOREIGN_KEY, myTable+"_forkey", myColumn, targetTable, targetColumn);
 	}
 	
@@ -30,6 +33,13 @@ public class DBUtility {
 	}
 	public static String MemberRFMCategoryName(String code){
 		return code + "_A_RFM_CATEGORY";
+	}
+	
+	public static String CategoryTableName(String code){
+		return code + "_CATEGORY";
+	}
+	public static String MemberCategoryTableName(String code){
+		return code + "_MEMBER_CATEGORY";
 	}
 	
 	public static String GenerateSQLOnCompany(String companyCode, String baseSQL){

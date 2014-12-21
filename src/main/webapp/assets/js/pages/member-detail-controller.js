@@ -91,7 +91,7 @@ module.controller('MemberDetailController', function($scope, $http) {
 	    $scope.rfm = data.rfm;
 	    
 	    drawFavProductChart($scope.favoriteSkus);
-	    drawFavirateStoreMap($scope.favoriteSkus);
+	    drawFavirateStoreMap($scope.favoriteStores);
 	    
 	});
 	

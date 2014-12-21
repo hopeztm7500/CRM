@@ -112,7 +112,7 @@
 						</div>
 						<!-- /.box -->
 
-						<div class="box" id="fav-sku">
+						<div class="box info-panel" id="fav-sku">
 
 
 							<!-- /.box-header -->
@@ -141,6 +141,36 @@
 							<!-- /.box -->
 						</div>
 						<!-- /.box -->
+						<div class="box info-panel" id="fav-sku">
+
+
+							<!-- /.box-header -->
+							<div class="box box-solid fill-all">
+								<div class="box-header">
+									<i class="fa fa-bar-chart-o"></i>
+									<h3 class="box-title">最喜欢光临的分店</h3>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<div class="col-lg-3">
+										<ul ng-repeat="store in favoriteStores">
+											<li ng-bind="store.store.storeName"></li>
+										</ul>
+									</div>
+									<div class="col-lg-9">
+
+										<div id="bar-chart" style="height: 350px"></div>
+
+									</div>
+
+
+								</div>
+								<!-- /.box-body -->
+							</div>
+							<!-- /.box -->
+						</div>
+						<!-- /.box -->
+
 
 
 					</div>
