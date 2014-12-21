@@ -53,6 +53,11 @@ public class MemberController {
 		return "member-detail";
 	}
 	
+	@RequestMapping(value="/categories")
+	public String getCategories(ModelMap model) {
+		return "member-categories";
+	}
+	
 	@RequestMapping(value = "/member-detail-info", method = RequestMethod.POST)
 	public @ResponseBody MemberDetailData getMemberDetailInfo(@RequestBody String id){
 		String companyCode = getCompanyCode();
@@ -81,6 +86,8 @@ public class MemberController {
 		String companyCode = getCompanyCode();
 		return memberService.getAllMember(companyCode);
 	}
+	
+	
 	
 	
 	

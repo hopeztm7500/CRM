@@ -34,7 +34,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="pages/charts/morris.html"><i class="fa fa-angle-double-right"></i>接口</a></li>
                                 <li><a href="customer-data.html"><i class="fa fa-angle-double-right"></i>会员概览</a></li>
-                                <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>会员明细</a></li>
+                                <li><a href="categories.html"><i class="fa fa-angle-double-right"></i>会员明细</a></li>
                                 <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>会员细分概览</a></li>
                                 <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>创建会员细分</a></li>
                             </ul>
