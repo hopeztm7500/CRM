@@ -82,4 +82,6 @@ public class MemberController {
 		return memberService.getAllMember(companyCode);
 	}
 	
+	
+	
 }

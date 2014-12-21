@@ -1,9 +1,12 @@
 package com.crm.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import com.crm.dao.spec.IMemberCategoryDao;
 import com.crm.dto.CategoryDto;
 import com.crm.dto.MemberCategoryDto;
 
+@Repository
 public class MemberCategoryDaoImpl implements IMemberCategoryDao {
 
 	private String SQL_CREATE_TABLE = "CREATE TABLE %s (category_id int, member_id varchar(50)) ";

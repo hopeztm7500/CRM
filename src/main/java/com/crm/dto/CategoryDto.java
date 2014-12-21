@@ -2,13 +2,17 @@ package com.crm.dto;
 
 public class CategoryDto {
 
-	private int id; //category id;
+	private long id; //category id;
 	private String name; //category name 
 	
-	public int getId() {
+	public CategoryDto(long id, String name){
+		this.id = id;
+		this.name = name;
+	}
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getName() {
