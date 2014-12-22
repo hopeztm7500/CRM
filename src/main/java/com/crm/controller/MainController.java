@@ -164,9 +164,9 @@ public class MainController {
 	                	for(String s: rawDatas.keySet()){
 	                		 companyService.createDataTables(s);
 	                		 List<RawDataRecordDto> records = rawDatas.get(s);
-	                		 List<MemberDto> memberDtos = new ArrayList<>();
-	                		 List<TransactionDto> transactionDtos = new ArrayList<>();
-	                		 Map<String, MemberDto> memberMap = new TreeMap<>();
+	                		 List<MemberDto> memberDtos = new ArrayList<MemberDto>();
+	                		 List<TransactionDto> transactionDtos = new ArrayList<TransactionDto>();
+	                		 Map<String, MemberDto> memberMap = new TreeMap<String, MemberDto>();
 	                		 
 	                		 for(RawDataRecordDto raw: records){
 	                			 if(!memberMap.containsKey(raw.getWechat())){

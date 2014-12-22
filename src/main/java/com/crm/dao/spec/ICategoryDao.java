@@ -2,6 +2,7 @@ package com.crm.dao.spec;
 
 import java.util.List;
 
+import com.crm.dto.CategoryDetailDto;
 import com.crm.dto.CategoryDto;
 
 public interface ICategoryDao {
@@ -12,5 +13,6 @@ public interface ICategoryDao {
 	public void updateCategory(String companyCode, CategoryDto category);
 	public CategoryDto getCategoryByCode(String companyCode, int id);
 	public List<CategoryDto> getAllCategories(String companyCode);
+	public List<CategoryDetailDto> getCategoryServiceDetail(String companyCode);
 
 }

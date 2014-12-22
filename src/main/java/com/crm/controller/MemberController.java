@@ -64,8 +64,8 @@ public class MemberController {
 	@RequestMapping(value = "/category-detail-info", method = RequestMethod.POST)
 	public @ResponseBody List<CategoryDetailDto> getCategoriesDetail(){
 		String companyCode = getCompanyCode();
-		List<CategoryDetailDto> categoryDetailDtos = null;
 		
+		List<CategoryDetailDto> categoryDetailDtos = catoryService.getCategoryServiceDetail(companyCode);
 		return categoryDetailDtos;
 	}
 	

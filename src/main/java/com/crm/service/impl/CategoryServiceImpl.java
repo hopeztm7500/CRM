@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crm.dao.spec.ICategoryDao;
+import com.crm.dto.CategoryDetailDto;
 import com.crm.dto.CategoryDto;
 import com.crm.service.spec.ICategoryService;
 
@@ -46,6 +47,12 @@ public class CategoryServiceImpl implements ICategoryService {
 	public void getAllCategories(String companyCode) {
 
 		categoryDao.getAllCategories(companyCode);
+	}
+
+	@Override
+	public List<CategoryDetailDto> getCategoryServiceDetail(String companyCode) {
+		
+		return categoryDao.getCategoryServiceDetail(companyCode);
 	}
 
 }
