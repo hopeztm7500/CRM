@@ -10,20 +10,19 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.crm.dto.CategoryDetailDto;
 import com.crm.dto.MemberDetailData;
 import com.crm.dto.MemberDto;
 import com.crm.dto.RFMResultDto;
 import com.crm.dto.SKUConDto;
-import com.crm.dto.SKUDto;
 import com.crm.dto.StoreConDto;
-import com.crm.dto.StoreDto;
 import com.crm.service.spec.IMemberService;
 import com.crm.service.spec.IRfmResultService;
 import com.crm.service.spec.ISkuService;
 import com.crm.service.spec.IStoreService;
+import com.crm.service.spec.ICategoryService;
+
 
 @Controller
 @RequestMapping("/")
@@ -42,6 +41,10 @@ public class MemberController {
 	@Autowired 
 	private ISkuService skuService;
 	
+	@Autowired
+	private ICategoryService catoryService;
+
+	
 	public String getCompanyCode(){
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
@@ -56,6 +59,14 @@ public class MemberController {
 	@RequestMapping(value="/categories")
 	public String getCategories(ModelMap model) {
 		return "member-categories";
+	}
+	
+	@RequestMapping(value = "/category-detail-info", method = RequestMethod.POST)
+	public @ResponseBody List<CategoryDetailDto> getCategoriesDetail(){
+		String companyCode = getCompanyCode();
+		List<CategoryDetailDto> categoryDetailDtos = null;
+		
+		return categoryDetailDtos;
 	}
 	
 	@RequestMapping(value = "/member-detail-info", method = RequestMethod.POST)
