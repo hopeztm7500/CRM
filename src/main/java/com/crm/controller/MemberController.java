@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import util.ConditionFilterItem;
+
 import com.crm.dto.CategoryDetailDto;
 import com.crm.dto.MemberDetailData;
 import com.crm.dto.MemberDto;
@@ -97,7 +100,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(value = "/members", method = RequestMethod.POST)
-	public @ResponseBody List<MemberDto> getMembers(){
+	public @ResponseBody List<MemberDto> getMembers(@RequestBody(required=false) List<ConditionFilterItem> conditions){
 		String companyCode = getCompanyCode();
 		return memberService.getAllMember(companyCode);
 	}

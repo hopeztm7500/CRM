@@ -15,22 +15,22 @@ module.controller('CustomerDataController', function($scope, $http) {
 		_.each(data, function(val) {
 
 			if (!map[val.rfmCategoryName]) {
-				
+
 				map[val.rfmCategoryName] = {
 					name : val.rfmCategoryName,
 					type : 'scatter',
-					data: [],
-					
+					data : [],
+
 				};
 				series.push(map[val.rfmCategoryName]);
 				legend.push(val.rfmCategoryName);
 
 			}
-			
-			map[val.rfmCategoryName].data.push([1, val.fScore]);
-			map[val.rfmCategoryName].data.push([2, val.rScore]);
-			map[val.rfmCategoryName].data.push([3, val.mScore]);
-			
+
+			map[val.rfmCategoryName].data.push([ 1, val.fScore ]);
+			map[val.rfmCategoryName].data.push([ 2, val.rScore ]);
+			map[val.rfmCategoryName].data.push([ 3, val.mScore ]);
+
 		});
 
 		require([ 'echarts', 'echarts/chart/scatter' ], function(ec) {
@@ -49,8 +49,7 @@ module.controller('CustomerDataController', function($scope, $http) {
 								+ ', ' + params.value[2];
 					}
 				},
-				
-			    
+
 				toolbox : {
 					show : true,
 					feature : {
@@ -69,7 +68,7 @@ module.controller('CustomerDataController', function($scope, $http) {
 						}
 					}
 				},
-				
+
 				legend : {
 					data : legend
 				},
@@ -87,10 +86,10 @@ module.controller('CustomerDataController', function($scope, $http) {
 					type : 'category',
 					axisLabel : {
 						formatter : function(v) {
-							switch(v){
+							switch (v) {
 							case 1:
 								return "f score";
-							case 2: 
+							case 2:
 								return "r score";
 							case 3:
 								return "m score";
@@ -117,8 +116,15 @@ module.controller('CustomerDataController', function($scope, $http) {
 		});
 
 	}
-
-	$http.post('/members').success(function(data) {
+	
+	var dataFilter = [{
+		dataType:window.commonUtil.DataType.NUMBER,
+		compareType:window.commonUtil.CompareType.EQUAL,
+		identifier:"category_id",
+		value:window.commonUtil.getUrlParam('category')
+	}];
+	
+	$http.post('/members', JSON.stringify(dataFilter)).success(function(data) {
 		$scope.members = data;
 	});
 
