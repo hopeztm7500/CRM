@@ -2,7 +2,7 @@ package com.crm.dto;
 
 import java.util.Date;
 
-public class RawDataRecordDto {
+public class RawTransactionRecordDto {
 	private String companyCode;
 	private String departCode;
 	private Date date;
@@ -13,7 +13,7 @@ public class RawDataRecordDto {
 	private int count;
 	private double total;
 	
-	public RawDataRecordDto(String companyCode, String departCode, Date date, String wechat, String telphone, String orderCode, String goodsId,
+	public RawTransactionRecordDto(String companyCode, String departCode, Date date, String wechat, String telphone, String orderCode, String goodsId,
 			int count, double total){
 		this.companyCode = companyCode;
 		this.departCode = departCode;

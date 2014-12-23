@@ -14,5 +14,6 @@ public interface ICategoryService {
 	public void getCategoryByCode(String companyCode, int id);
 	public void getAllCategories(String companyCode);
 	public List<CategoryDetailDto> getCategoryServiceDetail(String companyCode);
+	public void createTable(String companyCode);
 	
 }

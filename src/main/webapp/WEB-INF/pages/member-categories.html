@@ -56,18 +56,18 @@
 											<th>细分ID</th>
 											<th>细分名称</th>
 											<th>细分人数</th>
-											<th>总消费金额</th>
+											<th>总消费金额(元)</th>
 											<th></th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr ng-repeat="category in categories">
-											<td>{{category.id}}</td>
-											<td>{{category.categoryName}}</td>
-											<td>{{category.categoryPeople}}</td>
-											<td>{{category.categoryTotal}}</td>
+											<td ng-bind="category.category.id"></td>
+											<td ng-bind="category.category.name"></td>
+											<td ng-bind="category.totalMemberCount"></td>
+											<td ng-bind="category.totalSpend"></td>
 											
-											<td><a href="/customer-data.html?category={{category.id}}">本细分所有会员</a></td>
+											<td><a href="/customer-data.html?category={{category.category.id}}">本细分所有会员</a></td>
 										</tr>
 									</tbody>
 								</table>

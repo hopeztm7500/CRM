@@ -14,5 +14,6 @@ public interface ICategoryDao {
 	public CategoryDto getCategoryByCode(String companyCode, int id);
 	public List<CategoryDto> getAllCategories(String companyCode);
 	public List<CategoryDetailDto> getCategoryServiceDetail(String companyCode);
+	public void createTable(String companyCode);
 
 }

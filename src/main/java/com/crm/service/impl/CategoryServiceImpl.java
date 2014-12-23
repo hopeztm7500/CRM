@@ -55,4 +55,9 @@ public class CategoryServiceImpl implements ICategoryService {
 		return categoryDao.getCategoryServiceDetail(companyCode);
 	}
 
+	@Override
+	public void createTable(String companyCode) {
+		categoryDao.createTable(companyCode);
+	}
+
 }

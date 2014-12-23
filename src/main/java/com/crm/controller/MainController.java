@@ -26,7 +26,7 @@ import util.RawDataReader;
 
 import com.crm.dto.MemberDto;
 import com.crm.dto.RFMResultDto;
-import com.crm.dto.RawDataRecordDto;
+import com.crm.dto.RawTransactionRecordDto;
 import com.crm.dto.TransactionDto;
 import com.crm.service.spec.ICompanyService;
 import com.crm.service.spec.IMemberService;
@@ -157,18 +157,18 @@ public class MainController {
 	                        new FileOutputStream(serverFile));
 	                stream.write(bytes);
 	                stream.close();
-	                Map<String, List<RawDataRecordDto>> rawDatas = null;
+	                Map<String, List<RawTransactionRecordDto>> rawDatas = null;
 	                // Create the file on server
 	                if(name.indexOf(".xlsx") > 0 || name.indexOf(".xls") > 0){
 	                	rawDatas = RawDataReader.readXLS(serverfileDir);
 	                	for(String s: rawDatas.keySet()){
 	                		 companyService.createDataTables(s);
-	                		 List<RawDataRecordDto> records = rawDatas.get(s);
+	                		 List<RawTransactionRecordDto> records = rawDatas.get(s);
 	                		 List<MemberDto> memberDtos = new ArrayList<MemberDto>();
 	                		 List<TransactionDto> transactionDtos = new ArrayList<TransactionDto>();
 	                		 Map<String, MemberDto> memberMap = new TreeMap<String, MemberDto>();
 	                		 
-	                		 for(RawDataRecordDto raw: records){
+	                		 for(RawTransactionRecordDto raw: records){
 	                			 if(!memberMap.containsKey(raw.getWechat())){
 	                				 MemberDto newDto = new MemberDto(raw.getWechat(), raw.getTelphone());
 	                				 memberMap.put(raw.getWechat(), newDto);
@@ -177,7 +177,7 @@ public class MainController {
 	                		 }
 	                		 
 	                		 memberService.insertByBatch(s, memberDtos);
-	                		 for(RawDataRecordDto raw: records){	 
+	                		 for(RawTransactionRecordDto raw: records){	 
 	                			 transactionDtos.add(new TransactionDto(memberMap.get(raw.getWechat()).getId(), raw.getDepartCode(), raw.getDate().getTime(), raw.getOrderCode(),
 	                					 raw.getGoodsId(), raw.getCount(), raw.getTotal()));
 	                		 }

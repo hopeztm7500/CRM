@@ -1,11 +1,14 @@
 package com.crm.dao.impl;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -36,6 +39,19 @@ public class CategoryDaoImpl implements ICategoryDao {
 	private static String SQL_GET_BY_ID = "SELECT id, category_name from %s WHERE id = ?";
 	
 
+	private static class CategoryPeopleMapper implements RowMapper<CategoryDetailDto>{
+		@Override
+		public CategoryDetailDto mapRow(ResultSet rs, int index)
+				throws SQLException {
+			long id = rs.getLong(1);
+			String categoryName = rs.getString(2);
+			int count = rs.getInt(3);
+			double sum = rs.getDouble(4);
+			return new CategoryDetailDto(new CategoryDto(id, categoryName), sum, count);		
+		}
+		
+	}
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
@@ -75,8 +91,24 @@ public class CategoryDaoImpl implements ICategoryDao {
 
 	@Override
 	public void addCategoryByBatch(String companyCode,
-			List<CategoryDto> categories) {
-		// TODO Auto-generated method stub
+			final List<CategoryDto> categories) {
+		String tableName = DBUtility.CategoryTableName(companyCode);
+		String sql = String.format(SQL_INSERT, tableName);
+		
+		
+		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(java.sql.PreparedStatement pps, int index)
+					throws SQLException {
+				pps.setString(1, categories.get(index).getName());
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return categories.size();
+			}
+		});
 
 	}
 
@@ -100,8 +132,25 @@ public class CategoryDaoImpl implements ICategoryDao {
 
 	@Override
 	public List<CategoryDetailDto> getCategoryServiceDetail(String companyCode) {
-		// TODO Auto-generated method stub
-		return null;
+		String categoryTable = DBUtility.CategoryTableName(companyCode);
+		String memberCategoryTable = DBUtility.MemberCategoryTableName(companyCode);
+		String transitionTable = DBUtility.TransTableName(companyCode);
+		String sql = String.format(SQL_QUERY_CATEGORY_PEOPLE, categoryTable, memberCategoryTable, transitionTable);
+		
+		return jdbcTemplate.query(sql, new CategoryPeopleMapper());
+	}
+
+	@Override
+	public void createTable(String companyCode) {
+		String tableName = DBUtility.CategoryTableName(companyCode);
+		String sql = String.format(SQL_CREATE_TABLE, tableName);
+		
+		jdbcTemplate.update(sql);
+		
+		List<CategoryDto> categoryDtos = CategoryDto.getTestData();
+		addCategoryByBatch(companyCode, categoryDtos);
+		
+		
 	}
 
 }

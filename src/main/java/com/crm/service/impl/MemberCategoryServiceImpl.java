@@ -1,5 +1,7 @@
 package com.crm.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import com.crm.dao.spec.ICategoryDao;
 import com.crm.dao.spec.IMemberCategoryDao;
 import com.crm.dto.CategoryDto;
 import com.crm.dto.MemberCategoryDto;
+import com.crm.dto.RawMemberCategoryDto;
 import com.crm.service.spec.IMemberCategoryService;
 
 @Service
@@ -26,6 +29,18 @@ public class MemberCategoryServiceImpl implements IMemberCategoryService {
 	@Override
 	public void createNewCategory(String companyCode,MemberCategoryDto memberCategory) {
 		memberCategoryDao.createNewCategory(companyCode, memberCategory);
+	}
+
+	@Override
+	public void createTable(String companyCode) {
+		memberCategoryDao.createTable(companyCode);
+	}
+
+	@Override
+	public void addMemberCategoryByBatch(String companyCode,
+			List<RawMemberCategoryDto> memberCategoryDtos) {
+		memberCategoryDao.addMemberCategoryByBatch(companyCode, memberCategoryDtos);
+		
 	}
 
 }

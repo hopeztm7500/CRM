@@ -22,6 +22,7 @@ import com.crm.service.spec.IRfmResultService;
 import com.crm.service.spec.ISkuService;
 import com.crm.service.spec.IStoreService;
 import com.crm.service.spec.ICategoryService;
+import com.crm.service.spec.IMemberCategoryService;
 
 
 @Controller
@@ -43,6 +44,9 @@ public class MemberController {
 	
 	@Autowired
 	private ICategoryService catoryService;
+	
+	@Autowired
+	private IMemberCategoryService memberCategoryService;
 
 	
 	public String getCompanyCode(){

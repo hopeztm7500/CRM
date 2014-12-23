@@ -18,15 +18,15 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import com.crm.dto.RawDataRecordDto;
+import com.crm.dto.RawTransactionRecordDto;
 
 public class RawDataReader {
 	
-	public static Map<String, List<RawDataRecordDto>> readXLS(String filePath) throws IOException, InvalidFormatException, ParseException 
+	public static Map<String, List<RawTransactionRecordDto>> readXLS(String filePath) throws IOException, InvalidFormatException, ParseException 
     {
         //Blank workbook
     	
-    	Map<String, List<RawDataRecordDto>> values = new HashMap<String, List<RawDataRecordDto>>();
+    	Map<String, List<RawTransactionRecordDto>> values = new HashMap<String, List<RawTransactionRecordDto>>();
     	
     	FileInputStream inputStream = new FileInputStream(new File(filePath));
     	 
@@ -36,7 +36,7 @@ public class RawDataReader {
         for(int i = 0; i < nSheet; i++){
         	 //Get first/desired sheet from the workbook
             Sheet sheet = workbook.getSheetAt(i);
-            List<RawDataRecordDto> myValues = new ArrayList<RawDataRecordDto>();
+            List<RawTransactionRecordDto> myValues = new ArrayList<RawTransactionRecordDto>();
             
             String sheetName = sheet.getSheetName();
             
@@ -69,7 +69,7 @@ public class RawDataReader {
                 double total = row.getCell(9).getNumericCellValue();
                 Date date2 = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(date + " " + time);
                 
-                RawDataRecordDto value = new RawDataRecordDto(companyCode, departCode, date2, 
+                RawTransactionRecordDto value = new RawTransactionRecordDto(companyCode, departCode, date2, 
                 		wechat, telphone, orderId, productId, count, total);
                 
                 myValues.add(value);

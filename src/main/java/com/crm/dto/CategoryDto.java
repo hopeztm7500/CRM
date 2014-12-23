@@ -28,11 +28,11 @@ public class CategoryDto {
 	
 	public static List<CategoryDto> getTestData(){
 		List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
-		categoryDtos.add(new CategoryDto(0, "×îÇîµÄ»áÔ±"));
-		categoryDtos.add(new CategoryDto(0, "×îĞ¡ÆøµÄ»áÔ±"));
-		categoryDtos.add(new CategoryDto(0, "×î°ÔÆøµÄ»áÔ±"));
-		categoryDtos.add(new CategoryDto(0, "×î¿¶¿®µÄ»áÔ±"));
-		categoryDtos.add(new CategoryDto(0, "ÖµµÃ¹Ø×¢µÄ»áÔ±"));
+		categoryDtos.add(new CategoryDto(0, "ä¼˜è´¨å®¢æˆ·"));
+		categoryDtos.add(new CategoryDto(0, "æ‹‰è´¦å®¢æˆ·"));
+		categoryDtos.add(new CategoryDto(0, "å¾ˆå°æ°”"));
+		categoryDtos.add(new CategoryDto(0, "éœ¸ç‹é¤"));
+		categoryDtos.add(new CategoryDto(0, "è¸¢é¦†çš„"));
 		
 		return categoryDtos;
 	}
