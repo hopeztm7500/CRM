@@ -78,7 +78,7 @@ module.controller('CustomerDataController', function($scope, $http) {
 					orient : 'horizontal',
 					y : 30,
 					x : 'center',
-					//text:['高','低'],           // 文本，默认为数值文本
+					// text:['高','低'], // 文本，默认为数值文本
 					color : [ 'lightgreen', 'orange' ],
 					splitNumber : 5
 				},
@@ -116,14 +116,16 @@ module.controller('CustomerDataController', function($scope, $http) {
 		});
 
 	}
-	
-	var dataFilter = [{
-		dataType:window.commonUtil.DataType.NUMBER,
-		compareType:window.commonUtil.CompareType.EQUAL,
-		identifier:"category_id",
-		value:window.commonUtil.getUrlParam('category')
-	}];
-	
+
+	var dataFilter = {
+		conditions : [ {
+			dataType : window.commonUtil.DataType.NUMBER,
+			compareType : window.commonUtil.CompareType.EQUAL,
+			identifier : "category_id",
+			value : window.commonUtil.getUrlParam('category')
+		}]
+	};
+
 	$http.post('/members', JSON.stringify(dataFilter)).success(function(data) {
 		$scope.members = data;
 	});
@@ -137,7 +139,7 @@ module.controller('CustomerDataController', function($scope, $http) {
 
 module.directive("jqTable", function() {
 	return function($scope, element, attrs) {
-		$scope.$watch("members", function(value) {//I change here
+		$scope.$watch("members", function(value) {// I change here
 			var val = value || null;
 			if (val) {
 				setTimeout(function() {

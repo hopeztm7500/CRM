@@ -3,6 +3,8 @@ package com.crm.dao.spec;
 
 import java.util.List;
 
+import util.ConditionFilter;
+
 import com.crm.dto.MemberDto;
 
 public interface IMemberDao {
@@ -14,6 +16,6 @@ public interface IMemberDao {
 	public boolean update(String companyCode, MemberDto memberDto);
 	public boolean insertByBatch(String companyCode, List<MemberDto> members);
 	public void queryIdForMembers(String companyCode, List<MemberDto> memberDtos);
-	public List<MemberDto> getAllMember(String companyCode);
+	public List<MemberDto> getAllMember(String companyCode, ConditionFilter conditions);
 	
 }

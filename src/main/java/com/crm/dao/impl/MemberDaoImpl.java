@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import util.ConditionFilter;
 import util.DBUtility;
 import util.NamingUtility;
 
@@ -25,7 +26,7 @@ public class MemberDaoImpl implements IMemberDao {
 	private static String SQL_QUERY_FOR_IDS = "SELECT id, wechat, telphone from %s WHERE wechat = ? or telphone = ? ";
 	private static String SQL_SELECT_ALL = " SELECT id, wechat, telphone, name, gender from %s ";
 	private static String SQL_SELECT_BY_ID = " SELECT id, wechat, telphone, name, gender from %s where id=? ";
-	
+	private static String SQL_SELECT_BY_CATEGORY = " SELECT id, wechat, telphone, name, gender from %s, %s where member_id=id ";
 	public static class MemberRowMapper implements RowMapper<MemberDto>{
 
 		@Override
@@ -155,8 +156,14 @@ public class MemberDaoImpl implements IMemberDao {
 	}
 
 	@Override
-	public List<MemberDto> getAllMember(String companyCode) {
+	public List<MemberDto> getAllMember(String companyCode, ConditionFilter conditions) {
 		String SQL = generateSelectAllSQL(companyCode);
+		if(conditions != null){
+			String memberTable = DBUtility.MemberTableName(companyCode);
+			String categoryTable = DBUtility.MemberCategoryTableName(companyCode);
+			SQL = String.format(SQL_SELECT_BY_CATEGORY, memberTable, categoryTable);
+			SQL += (conditions.getSqlConditionString() != "" ? "AND " + conditions.getSqlConditionString() : "");
+		}
 		return jdbcTemplate.query(SQL, new MemberALLRowMapper());
 		
 	}

@@ -2,6 +2,8 @@ package com.crm.service.spec;
 
 import java.util.List;
 
+import util.ConditionFilter;
+
 import com.crm.dto.MemberDto;
 
 public interface IMemberService {
@@ -13,5 +15,5 @@ public interface IMemberService {
 	public boolean update(String companyCode, MemberDto memberDto);
 	public boolean insertByBatch(String companyCode, List<MemberDto> members);
 	public void queryIdForMembers(String companyCode, List<MemberDto> memberDtos);
-	public List<MemberDto> getAllMember(String companyCode);
+	public List<MemberDto> getAllMember(String companyCode, ConditionFilter conditions);
 }

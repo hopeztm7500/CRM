@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import util.ConditionFilter;
+
 import com.crm.dao.spec.IMemberDao;
 import com.crm.dto.MemberDto;
 import com.crm.service.spec.IMemberService;
@@ -50,8 +52,8 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public List<MemberDto> getAllMember(String companyCode) {
-		return memberDao.getAllMember(companyCode);
+	public List<MemberDto> getAllMember(String companyCode, ConditionFilter conditions) {
+		return memberDao.getAllMember(companyCode,  conditions);
 	}
 
 }

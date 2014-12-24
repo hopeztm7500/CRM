@@ -8,7 +8,7 @@ public class ConditionFilterItem {
 	}
 
 	public enum CompareType {
-		LESS, LESS_EQ, EQUAL, LARGER_EQ, LARGER;
+		LESS, LESS_EQ, EQUAL, LARGER_EQ, LARGER, LIKE
 		
 	}
 
