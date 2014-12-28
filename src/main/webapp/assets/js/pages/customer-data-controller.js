@@ -12,6 +12,12 @@ module.controller('CustomerDataController', function($scope, $http) {
 		var legend = [];
 		var series = [];
 		var map = {};
+		
+		function random(){
+		    var r = Math.round(Math.random() * 100);
+		    return (r * (r % 2 == 0 ? 1 : -1));
+		}
+	
 		_.each(data, function(val) {
 
 			if (!map[val.rfmCategoryName]) {
@@ -20,97 +26,81 @@ module.controller('CustomerDataController', function($scope, $http) {
 					name : val.rfmCategoryName,
 					type : 'scatter',
 					data : [],
-
+					symbolSize: function (value){
+			            return Math.round(value[2]);
+			        }
 				};
+				
 				series.push(map[val.rfmCategoryName]);
 				legend.push(val.rfmCategoryName);
 
 			}
 
-			map[val.rfmCategoryName].data.push([ 1, val.fScore ]);
-			map[val.rfmCategoryName].data.push([ 2, val.rScore ]);
-			map[val.rfmCategoryName].data.push([ 3, val.mScore ]);
+			map[val.rfmCategoryName].data.push([val.fScore, val.rScore,  val.mScore]);
+		
 
 		});
 
 		require([ 'echarts', 'echarts/chart/scatter' ], function(ec) {
 			var myChart = ec.init(document.getElementById('bubble-chart'));
 
+			
+
+			function randomDataArray() {
+			    var d = [];
+			    var len = 100;
+			    while (len--) {
+			        d.push([
+			            random(),
+			            random(),
+			            Math.abs(random()),
+			        ]);
+			    }
+			    return d;
+			}
+
 			option = {
-				title : {
-					text : '客户RFM分析图',
-
-				},
-				tooltip : {
-					trigger : 'item',
-					formatter : function(params) {
-						return params.seriesName + ' （' + '类目'
-								+ params.value[0] + '）<br/>' + params.value[1]
-								+ ', ' + params.value[2];
-					}
-				},
-
-				toolbox : {
-					show : true,
-					feature : {
-						mark : {
-							show : true
-						},
-						dataView : {
-							show : true,
-							readOnly : false
-						},
-						restore : {
-							show : true
-						},
-						saveAsImage : {
-							show : true
-						}
-					}
-				},
-
-				legend : {
-					data : legend
-				},
-				dataRange : {
-					min : 0,
-					max : 100,
-					orient : 'horizontal',
-					y : 30,
-					x : 'center',
-					// text:['高','低'], // 文本，默认为数值文本
-					color : [ 'lightgreen', 'orange' ],
-					splitNumber : 5
-				},
-				xAxis : [ {
-					type : 'category',
-					axisLabel : {
-						formatter : function(v) {
-							switch (v) {
-							case 1:
-								return "f score";
-							case 2:
-								return "r score";
-							case 3:
-								return "m score";
-							}
-						}
-					},
-					data : function() {
-						var list = [];
-						var len = 0;
-						while (len++ < 3) {
-							list.push(len);
-						}
-						return list;
-					}()
-				} ],
-				yAxis : [ {
-					type : 'value'
-				} ],
-				animation : true,
-				series : series
+			    tooltip : {
+			        trigger: 'axis',
+			        showDelay : 0,
+			        axisPointer:{
+			            type : 'cross',
+			            lineStyle: {
+			                type : 'dashed',
+			                width : 1
+			            }
+			        }
+			    },
+			    legend: {
+			        data:legend
+			    },
+			    toolbox: {
+			        show : false,
+			        feature : {
+			            mark : {show: true},
+			            dataZoom : {show: true},
+			            dataView : {show: true, readOnly: false},
+			            restore : {show: true},
+			            saveAsImage : {show: true}
+			        }
+			    },
+			    xAxis : [
+			        {
+			            type : 'value',
+			            splitNumber: 4,
+			            scale: true
+			        }
+			    ],
+			    yAxis : [
+			        {
+			            type : 'value',
+			            splitNumber: 4,
+			            scale: true
+			        }
+			    ],
+			    series : series
 			};
+			                    
 
 			myChart.setOption(option);
 		});
